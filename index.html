@@ -131,11 +131,15 @@
   h1.headline{
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(30px, 5vw, 52px);
+    font-size: clamp(24px, 3.6vw, 42px);
     line-height: 1.35;
     margin: 24px 0 20px;
     letter-spacing: -0.01em;
-    max-width: 16ch;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+  @media (max-width: 900px){
+    h1.headline{ white-space: normal; }
   }
   .hero-desc{
     font-size: 16px;
