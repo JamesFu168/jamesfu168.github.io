@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — 任務看板 MVP 產品說明</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12151c;
+    --bg-elev: #181c26;
+    --panel: #1e2330;
+    --card: #edeef2;
+    --card-ink: #1b1e27;
+    --ink: #e7e9ee;
+    --ink-dim: #9aa1b2;
+    --line: rgba(231,233,238,0.10);
+    --accent: #4f8ef7;
+    --accent-soft: rgba(79,142,247,0.15);
+    --sync: #3ddbd9;
+    --c-plan: #8b7fd1;
+    --c-todo: #e8a94c;
+    --c-doing: #4f8ef7;
+    --c-done: #4fbf8b;
+    --font-display: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+    --font-body: 'Inter', 'Noto Sans TC', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-feature-settings: "palt" 1;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--accent); color: #fff; }
+
+  a{ color: inherit; }
+
+  :focus-visible{
+    outline: 2px solid var(--sync);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Nav-ish top bar ---------- */
+  .topbar{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(18,21,28,0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .brand{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--sync);
+    box-shadow: 0 0 0 0 rgba(61,219,217,0.5);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(61,219,217,0.45); }
+    70%{ box-shadow: 0 0 0 8px rgba(61,219,217,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(61,219,217,0); }
+  }
+  .topbar .stacktext{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    letter-spacing: 0.03em;
+  }
+  @media (max-width: 640px){ .topbar .stacktext{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset: -20% -10% auto -10%;
+    height: 480px;
+    background: radial-gradient(ellipse at 30% 0%, rgba(79,142,247,0.16), transparent 60%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--sync);
+    background: rgba(61,219,217,0.08);
+    border: 1px solid rgba(61,219,217,0.25);
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+  }
+  h1.headline{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.35;
+    margin: 24px 0 20px;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  .hero-desc{
+    font-size: 16px;
+    color: var(--ink-dim);
+    max-width: 56ch;
+    margin: 0 0 36px;
+  }
+  .stack-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 56px;
+  }
+  .chip{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 7px 13px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink-dim);
+  }
+
+  /* ---------- Signature: mini kanban ---------- */
+  .board{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    position: relative;
+  }
+  @media (max-width: 800px){
+    .board{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px){
+    .board{ grid-template-columns: 1fr; }
+  }
+  .col{
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+    min-height: 150px;
+  }
+  .col-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+    letter-spacing: 0.03em;
+  }
+  .col-dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .col[data-c="plan"] .col-dot{ background: var(--c-plan); }
+  .col[data-c="todo"] .col-dot{ background: var(--c-todo); }
+  .col[data-c="doing"] .col-dot{ background: var(--c-doing); }
+  .col[data-c="done"] .col-dot{ background: var(--c-done); }
+
+  .kcard{
+    background: var(--card);
+    color: var(--card-ink);
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 9px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.15), 0 8px 18px -12px rgba(0,0,0,0.5);
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: default;
+  }
+  .kcard:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1), 0 14px 24px -12px rgba(0,0,0,0.55);
+  }
+  .kcard .bar{
+    height: 3px;
+    border-radius: 3px;
+    margin-top: 8px;
+    background: rgba(27,30,39,0.12);
+    overflow:hidden;
+  }
+  .kcard .bar span{ display:block; height:100%; background: var(--accent); }
+  .col[data-c="done"] .kcard .bar span{ background: var(--c-done); }
+
+  /* ---------- Section shell ---------- */
+  section{
+    padding: 88px 0;
+    border-top: 1px solid var(--line);
+  }
+  .sec-head{
+    display:flex;
+    gap: 20px;
+    align-items: baseline;
+    margin-bottom: 44px;
+  }
+  .sec-num{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    flex-shrink:0;
+    padding-top: 6px;
+  }
+  .sec-title-group h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 30px);
+    margin: 0 0 8px;
+  }
+  .sec-title-group p{
+    color: var(--ink-dim);
+    margin: 0;
+    max-width: 62ch;
+    font-size: 15px;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- 01 overview board (larger) ---------- */
+  .overview-board{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 800px){ .overview-board{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px){ .overview-board{ grid-template-columns: 1fr; } }
+
+  /* ---------- 02 feature grid ---------- */
+  .feature-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 860px){ .feature-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px){ .feature-grid{ grid-template-columns: 1fr; } }
+  .feature{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 22px;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .feature:hover{
+    border-color: rgba(79,142,247,0.35);
+    transform: translateY(-3px);
+  }
+  .feature h3{
+    font-family: var(--font-display);
+    font-size: 16.5px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  .feature p{
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+
+  /* ---------- 03 flow timeline ---------- */
+  .timeline{
+    position: relative;
+    margin-left: 4px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left: 17px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item{
+    display:flex;
+    gap: 22px;
+    padding-bottom: 34px;
+    position: relative;
+  }
+  .tl-item:last-child{ padding-bottom: 0; }
+  .tl-num{
+    flex-shrink:0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    z-index: 1;
+  }
+  .tl-body h3{
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 4px 0 6px;
+  }
+  .tl-body p{
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* ---------- 04 permission table ---------- */
+  .perm-table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .perm-table thead th{
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    background: var(--bg-elev);
+    padding: 14px 18px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+  }
+  .perm-table tbody td{
+    padding: 16px 18px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .perm-table tbody tr:last-child td{ border-bottom: none; }
+  .perm-table tbody tr:hover{ background: rgba(79,142,247,0.05); }
+  .role-cell{
+    font-family: var(--font-display);
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  .role-cell .tag{
+    display:inline-block;
+    width:8px; height:8px;
+    border-radius:50%;
+    margin-right: 8px;
+    background: var(--accent);
+  }
+  .perm-table tbody tr:nth-child(2) .tag{ background: var(--c-doing); }
+  .perm-table tbody tr:nth-child(3) .tag{ background: var(--c-done); }
+  .perm-table tbody tr:nth-child(4) .tag{ background: var(--ink-dim); }
+  .perm-table tbody td:last-child{ color: var(--ink-dim); }
+
+  @media (max-width: 640px){
+    .perm-table, .perm-table thead, .perm-table tbody, .perm-table th, .perm-table td, .perm-table tr{ display:block; }
+    .perm-table thead{ display:none; }
+    .perm-table tbody tr{ border-bottom: 1px solid var(--line); padding: 14px 0; }
+    .perm-table tbody td{ border:none; padding: 4px 0; }
+  }
+
+  footer{
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  footer p{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+    letter-spacing: 0.03em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    .reveal{ opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>Dashboard</div>
+    <div class="stacktext">Angular 18 · .NET Web API · Azure SQL · SignalR</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">MVP · 上線前產品說明</span>
+    <h1 class="headline">把部門的任務，變成一張看得見進度的看板。</h1>
+    <p class="hero-desc">
+      Dashboard 是一套輕量看板式任務管理系統：卡片承載工作項目、Task 拆解執行細節、成員即時同步彼此的進度 —— 不需要額外的溝通成本。
+    </p>
+    <div class="stack-row">
+      <span class="chip">Angular 18</span>
+      <span class="chip">.NET Web API</span>
+      <span class="chip">Azure SQL</span>
+      <span class="chip">SignalR 即時同步</span>
+    </div>
+
+    <div class="board" aria-hidden="true">
+      <div class="col" data-c="plan">
+        <div class="col-head"><span class="col-dot"></span>Plan</div>
+        <div class="kcard">Q3 報表自動化<div class="bar"><span style="width:20%"></span></div></div>
+      </div>
+      <div class="col" data-c="todo">
+        <div class="col-head"><span class="col-dot"></span>To Do</div>
+        <div class="kcard">客戶回饋整理<div class="bar"><span style="width:0%"></span></div></div>
+        <div class="kcard">API 文件補齊<div class="bar"><span style="width:0%"></span></div></div>
+      </div>
+      <div class="col" data-c="doing">
+        <div class="col-head"><span class="col-dot"></span>Doing</div>
+        <div class="kcard">登入頁重構<div class="bar"><span style="width:55%"></span></div></div>
+      </div>
+      <div class="col" data-c="done">
+        <div class="col-head"><span class="col-dot"></span>Done</div>
+        <div class="kcard">DevOps 連結串接<div class="bar"><span style="width:100%"></span></div></div>
+        <div class="kcard">Email 驗證流程<div class="bar"><span style="width:100%"></span></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">01</div>
+      <div class="sec-title-group">
+        <h2>看板總覽</h2>
+        <p>四個欄位對應工作的自然生命週期，卡片可跨欄拖曳，狀態一目了然。</p>
+      </div>
+    </div>
+    <div class="overview-board reveal">
+      <div class="col" data-c="plan">
+        <div class="col-head"><span class="col-dot"></span>Plan</div>
+        <div class="kcard">Q3 報表自動化<div class="bar"><span style="width:20%"></span></div></div>
+      </div>
+      <div class="col" data-c="todo">
+        <div class="col-head"><span class="col-dot"></span>To Do</div>
+        <div class="kcard">客戶回饋整理<div class="bar"><span style="width:0%"></span></div></div>
+        <div class="kcard">API 文件補齊<div class="bar"><span style="width:0%"></span></div></div>
+      </div>
+      <div class="col" data-c="doing">
+        <div class="col-head"><span class="col-dot"></span>Doing</div>
+        <div class="kcard">登入頁重構<div class="bar"><span style="width:55%"></span></div></div>
+      </div>
+      <div class="col" data-c="done">
+        <div class="col-head"><span class="col-dot"></span>Done</div>
+        <div class="kcard">DevOps 連結串接<div class="bar"><span style="width:100%"></span></div></div>
+        <div class="kcard">Email 驗證流程<div class="bar"><span style="width:100%"></span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">02</div>
+      <div class="sec-title-group">
+        <h2>核心功能</h2>
+        <p>MVP 已完成並可上線提供使用的能力範圍。</p>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <h3>卡片與 Task 分層</h3>
+        <p>每張卡片可拆成多個 Task 並分別指派給不同成員，完成度自動彙總成進度條。</p>
+      </div>
+      <div class="feature reveal">
+        <h3>雙視圖切換</h3>
+        <p>個人看板／部門看板自由切換，也能改用任務表格視圖篩選、彙總所有任務。</p>
+      </div>
+      <div class="feature reveal">
+        <h3>即時多人協作</h3>
+        <p>透過 SignalR 推播異動，多人同時編輯時以最後更新時間避免互相覆蓋。</p>
+      </div>
+      <div class="feature reveal">
+        <h3>回收桶</h3>
+        <p>刪除的卡片先進垃圾桶，可還原或永久刪除，避免誤刪造成的損失。</p>
+      </div>
+      <div class="feature reveal">
+        <h3>排程與優先等級</h3>
+        <p>卡片可設定優先等級、開始／到期日期，並可連結對應的 Azure DevOps 工作項目。</p>
+      </div>
+      <div class="feature reveal">
+        <h3>到期自動結案</h3>
+        <p>逾期未處理的卡片會依規則自動標記結案，減少手動維護看板的負擔。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">03</div>
+      <div class="sec-title-group">
+        <h2>使用流程</h2>
+        <p>從註冊到日常協作的完整路徑。</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-num">01</div>
+        <div class="tl-body">
+          <h3>註冊並完成 Email 驗證</h3>
+          <p>系統寄出驗證信（SendGrid），完成後即可登入；忘記密碼可自助重設。</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-num">02</div>
+        <div class="tl-body">
+          <h3>選擇視圖</h3>
+          <p>登入後可切換「個人看板」或「部門看板」，視需要再切到任務表格視圖做篩選。</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-num">03</div>
+        <div class="tl-body">
+          <h3>建立卡片</h3>
+          <p>Card Owner 設定名稱、優先等級、起訖日期，並可貼上對應的 DevOps 連結。</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-num">04</div>
+        <div class="tl-body">
+          <h3>拆解並指派 Task</h3>
+          <p>在卡片內新增 Task，指派給負責的成員；成員只能勾選自己被指派的項目。</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-num">05</div>
+        <div class="tl-body">
+          <h3>推進與同步</h3>
+          <p>Card Owner 拖曳卡片改變狀態，所有協作者透過即時推播看到最新進度。</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-num">06</div>
+        <div class="tl-body">
+          <h3>清理與回溯</h3>
+          <p>不再需要的卡片移入垃圾桶，需要時可還原；到期任務由系統自動結案。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="permissions">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">04</div>
+      <div class="sec-title-group">
+        <h2>權限模型</h2>
+        <p>依角色決定看得到什麼、能動什麼 —— 前端隱藏操作、後端 API 同步驗證。</p>
+      </div>
+    </div>
+    <table class="perm-table reveal">
+      <thead>
+        <tr>
+          <th>角色</th>
+          <th>可以做什麼</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="role-cell"><span class="tag"></span>卡片擁有者</td>
+          <td>建立、編輯、刪除卡片，拖曳改變狀態，指派 Task 給成員</td>
+        </tr>
+        <tr>
+          <td class="role-cell"><span class="tag"></span>Task 指派人</td>
+          <td>檢視卡片內容，勾選自己被指派的 Task 完成狀態，不可移動卡片</td>
+        </tr>
+        <tr>
+          <td class="role-cell"><span class="tag"></span>同部門成員</td>
+          <td>檢視部門看板掌握整體進度，不可編輯他人卡片</td>
+        </tr>
+        <tr>
+          <td class="role-cell"><span class="tag"></span>非相關人員</td>
+          <td>無法檢視該卡片</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Dashboard · MVP 產品說明 · 2026-07-28</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  } else {
+    els.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
