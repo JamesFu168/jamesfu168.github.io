@@ -581,7 +581,7 @@
       <div class="section-header">
         <div>
           <h2 class="section-title">公開專案與工具庫 (Public Repositories)</h2>
-          <p class="section-subtitle">自動即時同步自 GitHub 帳號下的公開儲存庫（設為 Private 的專案會自動隱藏）</p>
+          <p class="section-subtitle">自動即時同步自 GitHub 帳號下的公開儲存庫（設為 Private 的專案會自動隱藏原始碼）</p>
         </div>
         <div class="sync-group">
           <span id="syncStatus" style="font-size: 0.82rem; color: var(--text-muted);">正在同步 GitHub API...</span>
@@ -593,9 +593,9 @@
 
       <div class="toolbar">
         <div class="tabs" id="filterTabs">
-          <button class="tab-btn active" data-filter="all" type="button">全部公開專案</button>
+          <button class="tab-btn active" data-filter="all" type="button">全部公開項目</button>
           <button class="tab-btn" data-filter="pages" type="button">已啟用網頁 (Pages)</button>
-          <button class="tab-btn" data-filter="code" type="button">程式碼與工具庫</button>
+          <button class="tab-btn" data-filter="code" type="button">公開原始碼庫</button>
         </div>
         <div class="search-box">
           <input
@@ -621,18 +621,8 @@
     const USERNAME = 'jamesfu168';
     const ROOT_REPO = 'jamesfu168.github.io';
 
-    const FALLBACK_REPOS = [
-      {
-        name: 'Edu-Prototype',
-        description: '教育部化學雲 POC 展示雛形',
-        language: 'JavaScript',
-        has_pages: true,
-        updated_at: '2026-10-25T05:29:53Z',
-        html_url: 'https://github.com/JamesFu168/Edu-Prototype'
-      }
-    ];
-
-    let allRepos = [];
+    let publishedPages = [];
+    let publicRepos = [];
     let currentFilter = 'all';
 
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -656,8 +646,9 @@
     }
 
     function formatDate(isoStr) {
-      if (!isoStr) return '';
+      if (!isoStr) return '近期更新';
       const d = new Date(isoStr);
+      if (isNaN(d.getTime())) return '近期更新';
       return d.toLocaleDateString('zh-TW', {
         year: 'numeric',
         month: '2-digit',
@@ -673,12 +664,10 @@
 
     function renderPagesSection() {
       const pagesGrid = document.getElementById('pagesGrid');
-      const pagesRepos = allRepos.filter(r => r.has_pages);
+      document.getElementById('statPagesCount').textContent = publishedPages.length;
+      document.getElementById('statRepoCount').textContent = publicRepos.length;
 
-      document.getElementById('statPagesCount').textContent = pagesRepos.length;
-      document.getElementById('statRepoCount').textContent = allRepos.length;
-
-      if (pagesRepos.length === 0) {
+      if (publishedPages.length === 0) {
         pagesGrid.innerHTML = `
           <div class="empty-state">
             目前尚無啟用 GitHub Pages 的子專案。
@@ -687,35 +676,39 @@
         return;
       }
 
-      pagesGrid.innerHTML = pagesRepos.map(repo => {
-        const pageUrl = `https://${USERNAME}.github.io/${repo.name}/`;
-        const desc = escapeHtml(repo.description || '已發佈於 GitHub Pages 的線上網頁專案');
-        const lang = escapeHtml(repo.language || 'Web');
-        const updated = formatDate(repo.updated_at || repo.pushed_at);
+      pagesGrid.innerHTML = publishedPages.map(site => {
+        const pageUrl = `https://${USERNAME}.github.io/${site.name}/`;
+        const desc = escapeHtml(site.description || '已發佈於 GitHub Pages 的線上展示網站');
+        const lang = escapeHtml(site.language || 'Web');
+        const updated = formatDate(site.updated_at);
+        const hasPublicSource = Boolean(site.html_url && !site.is_private_source);
 
         return `
           <article class="card card-featured">
             <div>
               <div class="card-top">
                 <h3 class="card-title">
-                  <a href="${pageUrl}" target="_blank" rel="noopener">${escapeHtml(repo.name)}</a>
+                  <a href="${pageUrl}" target="_blank" rel="noopener">${escapeHtml(site.name)}</a>
                 </h3>
                 <div class="badges">
                   <span class="badge badge-live">● 已上線</span>
                   <span class="badge badge-lang">${lang}</span>
                 </div>
               </div>
-              <div class="card-url">https://${USERNAME}.github.io/${escapeHtml(repo.name)}</div>
+              <div class="card-url">https://${USERNAME}.github.io/${escapeHtml(site.name)}/</div>
               <p class="card-desc">${desc}</p>
             </div>
             <div class="card-footer">
               <div class="card-meta">
-                <span>子目錄路徑：/${escapeHtml(repo.name)}</span>
-                <span>最後更新：${updated}</span>
+                <span>子目錄路徑：/${escapeHtml(site.name)}</span>
+                <span>更新：${updated}</span>
               </div>
               <div class="card-actions">
                 <a class="btn btn-primary" href="${pageUrl}" target="_blank" rel="noopener">立即造訪網站 ↗</a>
-                <a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">GitHub 原始碼</a>
+                ${hasPublicSource
+                  ? `<a class="btn btn-secondary" href="${site.html_url}" target="_blank" rel="noopener">GitHub 原始碼</a>`
+                  : ''
+                }
               </div>
             </div>
           </article>
@@ -727,14 +720,40 @@
       const grid = document.getElementById('allReposGrid');
       const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
-      const filtered = allRepos.filter(repo => {
-        if (currentFilter === 'pages' && !repo.has_pages) return false;
-        if (currentFilter === 'code' && repo.has_pages) return false;
+      // Merge publishedPages + publicRepos without duplicates
+      const combinedMap = new Map();
+      publishedPages.forEach(p => {
+        combinedMap.set(p.name.toLowerCase(), { ...p, has_pages: true });
+      });
+      publicRepos.forEach(r => {
+        const key = r.name.toLowerCase();
+        if (combinedMap.has(key)) {
+          const existing = combinedMap.get(key);
+          combinedMap.set(key, {
+            ...r,
+            ...existing,
+            has_pages: true,
+            is_private_source: false,
+            html_url: r.html_url
+          });
+        } else {
+          combinedMap.set(key, {
+            ...r,
+            is_private_source: false
+          });
+        }
+      });
+
+      const items = Array.from(combinedMap.values());
+
+      const filtered = items.filter(item => {
+        if (currentFilter === 'pages' && !item.has_pages) return false;
+        if (currentFilter === 'code' && item.is_private_source) return false;
 
         if (!keyword) return true;
-        const nameMatch = repo.name.toLowerCase().includes(keyword);
-        const descMatch = (repo.description || '').toLowerCase().includes(keyword);
-        const langMatch = (repo.language || '').toLowerCase().includes(keyword);
+        const nameMatch = item.name.toLowerCase().includes(keyword);
+        const descMatch = (item.description || '').toLowerCase().includes(keyword);
+        const langMatch = (item.language || '').toLowerCase().includes(keyword);
         return nameMatch || descMatch || langMatch;
       });
 
@@ -747,20 +766,21 @@
         return;
       }
 
-      grid.innerHTML = filtered.map(repo => {
-        const hasPages = Boolean(repo.has_pages);
-        const pageUrl = `https://${USERNAME}.github.io/${repo.name}/`;
-        const desc = escapeHtml(repo.description || '開源技術與工具專案');
-        const lang = escapeHtml(repo.language || 'Repository');
-        const updated = formatDate(repo.updated_at || repo.pushed_at);
+      grid.innerHTML = filtered.map(item => {
+        const hasPages = Boolean(item.has_pages);
+        const hasPublicSource = Boolean(item.html_url && !item.is_private_source);
+        const pageUrl = `https://${USERNAME}.github.io/${item.name}/`;
+        const desc = escapeHtml(item.description || '開源技術與工具專案');
+        const lang = escapeHtml(item.language || 'Repository');
+        const updated = formatDate(item.updated_at || item.pushed_at);
 
         return `
           <article class="card">
             <div>
               <div class="card-top">
                 <h3 class="card-title">
-                  <a href="${hasPages ? pageUrl : repo.html_url}" target="_blank" rel="noopener">
-                    ${escapeHtml(repo.name)}
+                  <a href="${hasPages ? pageUrl : item.html_url}" target="_blank" rel="noopener">
+                    ${escapeHtml(item.name)}
                   </a>
                 </h3>
                 <div class="badges">
@@ -772,14 +792,17 @@
             </div>
             <div class="card-footer">
               <div class="card-meta">
-                <span>更新日期：${updated}</span>
-                <span>${hasPages ? `/${escapeHtml(repo.name)}` : 'GitHub Repo'}</span>
+                <span>更新：${updated}</span>
+                <span>${hasPages ? `/${escapeHtml(item.name)}` : 'GitHub Repo'}</span>
               </div>
               <div class="card-actions">
                 ${hasPages
-                  ? `<a class="btn btn-primary" href="${pageUrl}" target="_blank" rel="noopener">開啟網頁 ↗</a>
-                     <a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">原始碼</a>`
-                  : `<a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">查看儲存庫 ↗</a>`
+                  ? `<a class="btn btn-primary" href="${pageUrl}" target="_blank" rel="noopener">開啟網頁 ↗</a>`
+                  : ''
+                }
+                ${hasPublicSource
+                  ? `<a class="btn btn-secondary" href="${item.html_url}" target="_blank" rel="noopener">${hasPages ? '原始碼' : '查看儲存庫 ↗'}</a>`
+                  : ''
                 }
               </div>
             </div>
@@ -788,14 +811,59 @@
       }).join('');
     }
 
+    async function fetchSubfolderSites(ts) {
+      try {
+        const res = await fetch(
+          `https://api.github.com/repos/${USERNAME}/${ROOT_REPO}/contents?_t=${ts}`,
+          { cache: 'no-store' }
+        );
+        if (!res.ok) return [];
+        const items = await res.json();
+        const dirs = items.filter(
+          item => item.type === 'dir' && !item.name.startsWith('.')
+        );
+
+        const sites = await Promise.all(
+          dirs.map(async dir => {
+            try {
+              const metaRes = await fetch(`/${dir.name}/site-meta.json?_t=${ts}`, { cache: 'no-store' });
+              if (metaRes.ok) {
+                const meta = await metaRes.json();
+                return {
+                  name: dir.name,
+                  description: meta.description || '線上展示網站',
+                  language: meta.language || 'Web',
+                  updated_at: meta.updated_at || new Date().toISOString(),
+                  is_private_source: true,
+                  has_pages: true
+                };
+              }
+            } catch (_) {}
+            return {
+              name: dir.name,
+              description: '線上展示網站 (GitHub Pages)',
+              language: 'Web',
+              updated_at: new Date().toISOString(),
+              is_private_source: true,
+              has_pages: true
+            };
+          })
+        );
+        return sites;
+      } catch (_) {
+        return [];
+      }
+    }
+
     async function initPortfolio() {
       const syncStatus = document.getElementById('syncStatus');
       syncStatus.textContent = '正在同步 GitHub API...';
       try {
         const ts = Date.now();
-        const [userRes, reposRes] = await Promise.all([
+        const [userRes, reposRes, subfolderSites] = await Promise.all([
           fetch(`https://api.github.com/users/${USERNAME}?_t=${ts}`, { cache: 'no-store' }),
-          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated&_t=${ts}`, { cache: 'no-store' })
+          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated&_t=${ts}`, { cache: 'no-store' }),
+          fetchSubfolderSites(ts)
         ]);
 
         if (userRes.ok) {
@@ -807,14 +875,30 @@
         if (!reposRes.ok) throw new Error(`HTTP ${reposRes.status}`);
         const repos = await reposRes.json();
 
-        allRepos = repos.filter(
+        publicRepos = repos.filter(
           r => !r.private && r.name.toLowerCase() !== ROOT_REPO.toLowerCase()
         );
+
+        // Combine subfolder sites + public repos with has_pages: true
+        const pagesMap = new Map();
+        subfolderSites.forEach(s => pagesMap.set(s.name.toLowerCase(), s));
+        publicRepos.filter(r => r.has_pages).forEach(r => {
+          pagesMap.set(r.name.toLowerCase(), {
+            name: r.name,
+            description: r.description,
+            language: r.language || 'Web',
+            updated_at: r.updated_at || r.pushed_at,
+            html_url: r.html_url,
+            is_private_source: false,
+            has_pages: true
+          });
+        });
+
+        publishedPages = Array.from(pagesMap.values());
         syncStatus.textContent = '✓ 已即時同步 GitHub 最新狀態';
       } catch (err) {
-        console.warn('GitHub API 讀取失敗，使用內建快取資料：', err);
-        allRepos = FALLBACK_REPOS;
-        syncStatus.textContent = '使用預載快取資料';
+        console.warn('GitHub API 讀取失敗：', err);
+        syncStatus.textContent = '同步受限（請稍後重試）';
       }
 
       renderPagesSection();
