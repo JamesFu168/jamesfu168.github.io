@@ -1,0 +1,15 @@
+/* V2-T04 系統日誌 */
+.sl-note { margin: 0 0 12px; color: var(--c-muted); font-size: 13px; line-height: 1.7; }
+.sl-table { min-width: 1100px; }
+.sl-table .sl-at { width: 150px; white-space: nowrap; }
+.sl-table .sl-role { width: 90px; }
+.sl-table .sl-mod { width: 110px; }
+.sl-table .sl-act { width: 80px; }
+.sl-table .sl-res { width: 70px; }
+.sl-table td.sl-at { white-space: nowrap; }
+.sl-pager { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 0; font-size: 14px; }
+.sl-pager .sl-pg-info { color: var(--c-muted); }
+.sl-grid { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+.sl-dates .input { flex: 1; min-width: 0; }
+.sl-table .sl-user { width: 160px; }
+.sl-table .sl-addr { width: 190px; }

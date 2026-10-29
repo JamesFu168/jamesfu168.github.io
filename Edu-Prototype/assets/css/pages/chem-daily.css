@@ -1,0 +1,91 @@
+/* 每日用量月曆（UI-11）、用量維護 Dialog（UI-12）、期初面板（UI-13）（T07） */
+.daily-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.daily-name { font-size: 18px; font-weight: bold; color: var(--c-side); }
+.daily-name .tag { vertical-align: middle; margin-left: 6px; }
+.daily-meta { display: flex; gap: 24px; margin-top: 4px; color: #3a4756; flex-wrap: wrap; }
+
+.daily-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.month-nav { display: flex; align-items: center; gap: 8px; }
+.month-title { font-size: 20px; font-weight: bold; margin-left: 14px; color: var(--c-side); }
+.btn-sm:disabled { opacity: .4; }
+
+.legend { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 12px; }
+.lg { display: inline-block; padding: 3px 10px; border-radius: 3px; color: #fff; }
+.lg-inc { background: #2e8b4f; }
+.lg-dec { background: #c8453b; }
+.lg-none { background: #7c8795; }
+.lg-miss { background: #fff8dc; color: #8a6d00; border: 1px dashed #d6b84c; }
+.lg-bal { background: #2f6fa8; }
+
+.summary-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 14px; }
+.sum-item { background: #f5f8fc; border: 1px solid var(--c-border); border-radius: 6px; padding: 8px 12px; min-width: 0; }
+.sum-label { color: var(--c-muted); font-size: 12px; }
+.sum-value { font-size: 17px; font-weight: bold; margin-top: 2px; overflow-wrap: anywhere; }
+.sum-sub { font-size: 12px; color: var(--c-muted); min-height: 16px; }
+.sum-inc { color: #2e8b4f; }
+.sum-dec { color: #c8453b; }
+.sum-bal { color: #2f6fa8; }
+.summary-row.no-opening { display: none; }
+
+.opening-panel { border: 1px solid #e0c36a; background: #fffbea; border-radius: 6px; padding: 14px 16px; margin-bottom: 14px; }
+.opening-title { font-weight: bold; color: #7a5d00; margin-bottom: 12px; }
+.opening-panel .form-row { margin-bottom: 4px; }
+.opening-panel .form-field { max-width: 480px; }
+.opening-panel .form-actions { padding-left: 140px; margin-top: 8px; }
+body.role-readonly .opening-panel .op-readonly-note { display: block; }
+.opening-panel .op-readonly-note { display: none; }
+.unit-addon { flex: none; padding: 0 10px; height: 36px; line-height: 36px; background: #f1f4f8; border: 1px solid #bcc8d6; border-left: 0; border-radius: 0 4px 4px 0; color: #4a5766; }
+.form-inline > input[type=number] { border-radius: 4px 0 0 4px; }
+.form-inline { gap: 0; }
+
+.cal-wrap { border: 1px solid var(--c-border); border-radius: 4px; overflow: hidden; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.cal-weekdays > div { background: #3d78a0; color: #fff; text-align: center; font-weight: bold; padding: 7px 0; border-left: 1px solid rgba(255,255,255,.25); }
+.cal-weekdays > div:first-child { border-left: 0; }
+.cal-cell { min-height: 118px; padding: 4px 6px 6px; border-top: 1px solid var(--c-border); border-left: 1px solid var(--c-border); display: flex; flex-direction: column; gap: 3px; background: #fff; position: relative; min-width: 0; }
+.cal-cell:nth-child(7n+1) { border-left: 0; }
+.cal-cell .day-num { text-align: right; font-size: 13px; color: #3a4756; }
+.cal-cell.pad { background: #f7f9fb; }
+.cal-cell.clickable { cursor: pointer; }
+.cal-cell.clickable:hover { background: #eef5fc; box-shadow: inset 0 0 0 2px #98c1d9; }
+.cal-cell.future { background: #f1f3f5; color: #a3adb9; cursor: not-allowed; }
+.cal-cell.future .day-num { color: #a3adb9; }
+.cal-cell.today .day-num { color: #fff; }
+.cal-cell.today .day-num span { background: var(--c-primary); border-radius: 10px; padding: 1px 7px; }
+.cal-cell .chip { font-size: 12px; line-height: 1.35; padding: 2px 6px; border-radius: 3px; color: #fff; overflow-wrap: anywhere; }
+.chip-inc { background: #2e8b4f; }
+.chip-dec { background: #c8453b; }
+.chip-none { background: #7c8795; }
+.chip-open { background: #e8eef6; color: #1f4e79 !important; border: 1px solid #b8c9de; }
+.chip-miss { background: #fff8dc; color: #8a6d00 !important; border: 1px dashed #d6b84c; }
+.chip-bal { background: #2f6fa8; margin-top: auto; }
+.cal-note { margin-top: 8px; font-size: 12px; }
+
+/* 用量維護 Dialog */
+.daily-dlg .dd-head { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+.daily-dlg .dd-date { font-size: 20px; font-weight: bold; color: #2b3a52; }
+.daily-dlg .dd-date small { font-size: 13px; font-weight: normal; color: var(--c-muted); margin-left: 6px; }
+.daily-dlg .dd-chem { color: #3a4756; align-self: flex-end; }
+.daily-dlg .dd-closed { background: #fdecea; border: 1px solid #f2b8b3; color: #a8362e; border-radius: 4px; padding: 8px 12px; margin-bottom: 10px; font-weight: bold; }
+.daily-dlg .dd-sec-title { font-weight: bold; color: var(--c-primary); margin: 6px 0; font-size: 14px; }
+.daily-dlg .dd-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.daily-dlg .dd-table th, .daily-dlg .dd-table td { padding: 6px 8px; border-bottom: 1px solid var(--c-border); font-size: 13px; text-align: left; vertical-align: top; }
+.daily-dlg .dd-table th { background: var(--c-th); }
+.daily-dlg .dd-table .dd-empty { text-align: center; color: var(--c-muted); padding: 14px; }
+.daily-dlg .dd-table .dd-act { white-space: nowrap; }
+.daily-dlg .dd-form { border-top: 1px dashed var(--c-border); padding-top: 12px; }
+.daily-dlg .dd-form .form-label { width: 110px; white-space: nowrap; }
+.daily-dlg .dd-file input[type=file] { max-width: 300px; }
+.daily-dlg .dd-form .form-row { margin-bottom: 10px; }
+.daily-dlg .radio-line { display: flex; align-items: center; gap: 20px; height: 36px; }
+.daily-dlg .radio-line label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.daily-dlg .dd-file { display: flex; align-items: center; gap: 8px; min-height: 36px; flex-wrap: wrap; }
+.daily-dlg .dd-edit-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.daily-dlg .dd-inc { color: #2e8b4f; font-weight: bold; }
+.daily-dlg .dd-dec { color: #c8453b; font-weight: bold; }
+
+@media (max-width: 1100px) {
+  .summary-row { grid-template-columns: repeat(3, 1fr); }
+  .cal-cell { min-height: 96px; }
+}
+.cal-cell .chip-nostart { font-size: 12px; color: #a3adb9; padding: 2px 6px; }

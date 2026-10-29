@@ -1,0 +1,76 @@
+/* 毒化物文件查詢（UI-14）、表單（UI-15）與新增物質／選取 SDS Dialog（UI-16）（T08） */
+.list-total { color: var(--c-muted); font-size: 14px; }
+#filter-panel .form-label { width: 104px; }
+#filter-panel .filter-grid { grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); }
+
+/* T15：欄寬總和約 1090px，1400 寬視窗不需橫向捲動 */
+.doc-table { min-width: 1090px; }
+.doc-table th, .doc-table td { padding: 9px 6px; }
+.doc-table .col-act1 { width: 48px; text-align: center; }
+.doc-table .c-subs { width: 100px; }
+.doc-table .c-type { width: 76px; }
+.doc-table .c-no { width: 146px; }
+.doc-table .c-att { width: 60px; text-align: center; }
+.doc-table .att-ico { cursor: help; }
+.doc-table .c-ctrl { width: 90px; }
+.doc-table .c-until { width: 130px; }
+.doc-table .c-sds { width: 90px; }
+.doc-table .c-org { width: 100px; }
+.doc-table .c-upd { width: 100px; white-space: nowrap; }
+.doc-table .dim { color: var(--c-muted); }
+.doc-table .subs-toggle { background: none; border: 0; padding: 0; font: inherit; color: var(--c-primary); cursor: pointer; }
+.doc-table .subs-toggle:hover { text-decoration: underline; }
+.doc-table .subs-toggle .caret { display: inline-block; width: 14px; font-size: 11px; transition: transform .15s; }
+.doc-table .subs-toggle.open .caret { transform: rotate(90deg); }
+.doc-table tr.subs-row td { background: #f5f9fd; padding: 8px 10px 8px 30px; }
+.doc-table tr.subs-row ul { margin: 0; padding-left: 18px; }
+.doc-table tr.subs-row li { margin: 2px 0; }
+.doc-table .sds-count { cursor: help; border-bottom: 1px dotted var(--c-muted); }
+
+/* 表單 */
+#doc-card .form-label { width: 130px; white-space: nowrap; }
+#doc-card .form-actions { padding-left: 130px; }
+#doc-card .form-field { max-width: 560px; }
+.dirty-flag { float: right; color: #946200; background: #fff3d6; border: 1px solid #f0cf85; border-radius: 10px; font-size: 12px; padding: 3px 9px; }
+.pair-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; margin-top: 10px; }
+.pair-grid .form-group-title { margin-top: 12px; }
+.pair-grid .form-field { max-width: none; }
+.att-line { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.att-pick { cursor: pointer; }
+.att-name { color: var(--c-text); overflow-wrap: anywhere; }
+.hint-gray { color: var(--c-muted); font-size: 12px; margin-top: 4px; }
+.group-note { color: var(--c-muted); font-size: 12px; margin: 6px 0 12px; }
+.sec-bar { margin-bottom: 8px; }
+.sec-error { color: var(--c-danger); font-size: 12px; margin-top: 3px; }
+.sub-table, .sds-table { table-layout: auto; }
+.sub-table .col-act2, .sds-table .col-act2 { width: 64px; text-align: center; }
+.sub-table .c-no { width: 130px; white-space: nowrap; }
+.sub-table .c-conc { width: 200px; }
+.sub-table .c-u { width: 70px; }
+.sds-table .c-idx { width: 150px; }
+.sds-table .c-tox { width: 110px; }
+
+/* 新增物質 Dialog（可搜尋下拉） */
+.sub-dlg .form-label { width: 180px; white-space: nowrap; }
+.sub-dlg .form-field { max-width: none; }
+.sub-search { position: relative; }
+.sub-search input[type=text] { width: 100%; }
+.sub-opts { position: absolute; left: 0; right: 0; top: 38px; z-index: 5; max-height: 220px; overflow-y: auto; background: #fff; border: 1px solid #bcc8d6; border-radius: 4px; box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.sub-opt { padding: 7px 10px; cursor: pointer; font-size: 14px; }
+.sub-opt:hover, .sub-opt.sel { background: #eaf2fa; }
+.sub-opt.dup { color: var(--c-muted); }
+.sub-opts .sub-empty { padding: 10px; color: var(--c-muted); text-align: center; }
+.conc-line { display: flex; align-items: center; gap: 8px; }
+.conc-line input { flex: 1; min-width: 0; }
+
+/* 選取 SDS Dialog */
+.sds-dlg .sds-pick-table { width: 100%; border-collapse: collapse; }
+.sds-dlg .sds-pick-table th, .sds-dlg .sds-pick-table td { padding: 7px 8px; border-bottom: 1px solid var(--c-border); text-align: left; font-size: 13px; vertical-align: top; }
+.sds-dlg .sds-pick-table th { background: var(--c-th); white-space: nowrap; }
+.sds-dlg .sds-pick-table tr:hover td { background: #f5f9fd; }
+.sds-dlg .covered { margin: 0; padding: 0; list-style: none; }
+.sds-dlg .covered li { margin-bottom: 2px; }
+.sds-dlg .dim { color: var(--c-muted); }
+.sds-dlg .dlg-note { color: var(--c-muted); font-size: 12px; margin-top: 10px; }
+
+@media (max-width: 900px) { .pair-grid { grid-template-columns: 1fr; } #doc-card .form-actions { padding-left: 0; } }

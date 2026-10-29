@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>化學品清單 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/chem.css?v=0dff829">
+</head>
+<body data-page="chem-list" data-menu="chem" data-title="化學品清單">
+  <main id="page-content">
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-org">組織部門</label><div class="form-field"><div class="form-inline"><select id="q-org"></select><label class="chk-inline"><input type="checkbox" id="q-sub" checked>含下層組織</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-sds">選取 SDS</label><div class="form-field"><select id="q-sds"></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-pdf">SDS 檔案</label><div class="form-field"><select id="q-pdf"><option value="">全部</option><option value="yes">有檔案</option><option value="no">無檔案</option><option value="none">未關聯 SDS</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-status">SDS 狀態</label><div class="form-field"><select id="q-status"><option value="">全部</option><option value="有效">有效</option><option value="停用">停用</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-tox">列管分類</label><div class="form-field"><select id="q-tox"><option value="">全部</option><option value="tox">毒化物</option><option value="nontox">非毒化物</option><option value="nosds">無 SDS 不判定</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-from">更新日期</label><div class="form-field"><div class="form-inline"><input type="date" id="q-from" class="input"><span>～</span><input type="date" id="q-to" class="input" aria-label="更新日期迄"></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="名稱、料號、供應商" autocomplete="off"></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary write-only" id="btn-add">新增化學品</button>
+      <button type="button" class="btn btn-danger write-only" id="btn-del">刪除化學品</button>
+      <button type="button" class="btn btn-secondary" id="btn-export">匯出 Excel</button>
+      <span class="poc-badge" title="Excel 為實際下載，內容為目前查詢結果">POC</span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table chem-table">
+        <thead><tr>
+          <th class="col-check write-only"><input type="checkbox" id="chk-all" aria-label="全選"></th>
+          <th class="col-act1">檢視</th>
+          <th class="col-act1 write-only">編輯</th>
+          <th class="col-act1">每日用量</th>
+          <th class="c-name sortable" data-sort="name">化學品名稱<span class="sort-ind"></span></th>
+          <th class="c-org sortable" data-sort="org">組織部門<span class="sort-ind"></span></th>
+          <th class="c-sds">SDS</th>
+          <th class="c-pdf">SDS 檔案</th>
+          <th class="c-tox">毒化物</th>
+          <th class="c-part">料號</th>
+          <th class="c-pos">使用地點</th>
+          <th class="c-pos">儲存地點</th>
+          <th class="c-unit">單位</th>
+          <th class="c-upd sortable" data-sort="updatedAt">更新時間<span class="sort-ind"></span></th>
+        </tr></thead>
+        <tbody id="chem-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/pages/chem-list.js?v=0dff829"></script>
+</body>
+</html>

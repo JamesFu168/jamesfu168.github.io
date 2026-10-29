@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>登入 - 教育部化學雲</title>
+  <link rel="stylesheet" href="assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="assets/css/pages/login.css?v=0dff829">
+</head>
+<body class="login-body" data-login="1">
+  <div class="login-wrap">
+    <section class="login-left" aria-label="教育部化學雲主題">
+      <div class="pdca-stage">
+        <svg class="pdca-ring" viewBox="0 0 400 400" role="img" aria-label="PDCA 循環圖">
+          <path d="M200 200 L200 50 A150 150 0 0 1 350 200 Z" fill="#f4a63d"/>
+          <path d="M200 200 L350 200 A150 150 0 0 1 200 350 Z" fill="#6bb432"/>
+          <path d="M200 200 L200 350 A150 150 0 0 1 50 200 Z" fill="#1f73b8"/>
+          <path d="M200 200 L50 200 A150 150 0 0 1 200 50 Z" fill="#7b4f9d"/>
+          <circle cx="200" cy="200" r="76" fill="#fff"/>
+          <text x="262" y="122" class="pdca-letter">P</text>
+          <text x="262" y="318" class="pdca-letter">D</text>
+          <text x="96" y="318" class="pdca-letter">C</text>
+          <text x="96" y="122" class="pdca-letter">A</text>
+          <text x="200" y="196" text-anchor="middle" class="pdca-center">教育部</text>
+          <text x="200" y="222" text-anchor="middle" class="pdca-center">化學雲</text>
+        </svg>
+        <div class="pdca-label pos-p"><span class="chip chip-p">P</span><span>SDS 建置</span></div>
+        <div class="pdca-label pos-d1"><span class="chip chip-d">D</span><span>化學品管理</span></div>
+        <div class="pdca-label pos-d2"><span class="chip chip-d">D</span><span>平面圖製作</span></div>
+        <div class="pdca-label pos-c1"><span class="chip chip-c">C</span><span>列管查詢</span></div>
+        <div class="pdca-label pos-c2"><span class="chip chip-c">C</span><span>SDS 自動檢查</span></div>
+        <div class="pdca-label pos-a1"><span class="chip chip-a">A</span><span>毒化物申報</span></div>
+        <div class="pdca-label pos-a2"><span class="chip chip-a">A</span><span>列管申報</span></div>
+      </div>
+      <svg class="campus" viewBox="0 0 800 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <ellipse cx="120" cy="40" rx="40" ry="14" fill="#fff" opacity=".85"/>
+        <ellipse cx="560" cy="28" rx="46" ry="15" fill="#fff" opacity=".85"/>
+        <ellipse cx="690" cy="60" rx="30" ry="11" fill="#fff" opacity=".8"/>
+        <g fill="#b9cbdb">
+          <rect x="30" y="90" width="120" height="70"/>
+          <polygon points="30,90 90,60 150,90"/>
+          <rect x="190" y="70" width="90" height="90"/>
+          <rect x="300" y="100" width="130" height="60"/>
+          <rect x="330" y="80" width="30" height="20"/>
+          <rect x="460" y="60" width="100" height="100"/>
+          <rect x="590" y="95" width="150" height="65"/>
+          <polygon points="590,95 665,70 740,95"/>
+        </g>
+        <g fill="#d7e3ee">
+          <rect x="50" y="110" width="14" height="16"/><rect x="76" y="110" width="14" height="16"/><rect x="102" y="110" width="14" height="16"/>
+          <rect x="205" y="90" width="12" height="14"/><rect x="230" y="90" width="12" height="14"/><rect x="255" y="90" width="12" height="14"/>
+          <rect x="205" y="120" width="12" height="14"/><rect x="230" y="120" width="12" height="14"/><rect x="255" y="120" width="12" height="14"/>
+          <rect x="478" y="78" width="12" height="14"/><rect x="505" y="78" width="12" height="14"/><rect x="532" y="78" width="12" height="14"/>
+          <rect x="478" y="110" width="12" height="14"/><rect x="505" y="110" width="12" height="14"/><rect x="532" y="110" width="12" height="14"/>
+        </g>
+        <rect x="0" y="150" width="800" height="10" fill="#a6bccf"/>
+      </svg>
+    </section>
+
+    <section class="login-right">
+      <div class="login-card">
+        <h1 class="login-title">教育部化學雲</h1>
+        <p class="login-welcome">歡迎使用</p>
+
+        <form id="login-form" novalidate autocomplete="off">
+          <div class="login-field" data-field="code">
+            <label for="f-code">學校代號</label>
+            <input type="text" id="f-code" name="code" autocomplete="off">
+            <div class="form-error" data-err="code"></div>
+          </div>
+          <div class="login-field" data-field="account">
+            <label for="f-account">帳號</label>
+            <input type="text" id="f-account" name="account" autocomplete="off">
+            <div class="form-error" data-err="account"></div>
+          </div>
+          <div class="login-field" data-field="pwd">
+            <label for="f-pwd">密碼</label>
+            <div class="pwd-wrap">
+              <input type="password" id="f-pwd" name="pwd" autocomplete="new-password">
+              <button type="button" id="pwd-toggle" class="pwd-toggle" aria-label="顯示密碼" title="顯示／隱藏密碼">👁</button>
+            </div>
+            <div class="form-error" data-err="pwd"></div>
+          </div>
+          <div class="login-remember">
+            <label><input type="checkbox" id="f-remember"> 記住帳號</label>
+          </div>
+          <div class="form-error login-error" id="login-error"></div>
+          <button type="submit" class="btn btn-primary login-btn">登入</button>
+        </form>
+
+        <div class="demo-accounts">
+          <div class="demo-head">展示帳號 <span class="poc-badge">POC 模擬登入</span></div>
+          <p class="demo-note">學校代號 <b>DEMO01</b>（不分大小寫）。點選下列列可自動帶入。</p>
+          <table class="demo-table">
+            <thead><tr><th>帳號</th><th>角色</th><th>密碼</th></tr></thead>
+            <tbody>
+              <tr data-account="admin"><td>admin</td><td>系統管理者</td><td>1234</td></tr>
+              <tr data-account="manager"><td>manager</td><td>管理者</td><td>1234</td></tr>
+              <tr data-account="user"><td>user</td><td>使用者</td><td>1234</td></tr>
+              <tr data-account="reader"><td>reader</td><td>唯讀使用者</td><td>1234</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="login-footer">威煦軟體 Tel：(02)2727-1685　Email：service@wishingsoft.com</div>
+      </div>
+    </section>
+  </div>
+  <script src="assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="assets/js/store.js?v=0dff829"></script>
+  <script src="assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="assets/js/audit.js?v=0dff829"></script>
+  <script src="assets/js/pages/login.js?v=0dff829"></script>
+</body>
+</html>

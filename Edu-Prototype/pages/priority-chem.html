@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>優先管理化學品 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/priority.css?v=0dff829">
+</head>
+<body data-page="priority-chem" data-menu="priority" data-title="優先管理化學品">
+  <main id="page-content">
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件<span class="filter-summary" id="filter-summary"></span></span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-pdf">SDS 檔案</label><div class="form-field"><select id="q-pdf"><option value="">全部</option><option value="yes">有檔案</option><option value="no">無檔案</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-status">SDS 狀態</label><div class="form-field"><select id="q-status"><option value="">全部</option><option value="有效" selected>有效</option><option value="停用">停用</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-org">組織部門</label><div class="form-field"><div class="form-inline"><select id="q-org"></select><label class="chk-inline"><input type="checkbox" id="q-sub" checked>含下層組織</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-from">更新日期</label><div class="form-field"><div class="form-inline"><input type="date" id="q-from" class="input"><span>～</span><input type="date" id="q-to" class="input" aria-label="更新日期迄"></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="化學品名稱、SDS 名稱、成分 CAS" autocomplete="off"></div></div>
+          <div class="form-row"><span class="form-label">篩選子分類</span><div class="form-field"><div class="form-inline sub-checks" id="q-subcats"></div></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="pri-notice" id="pri-notice"></div>
+
+    <div class="action-bar">
+      <button type="button" class="btn btn-secondary write-only" id="btn-export">匯出填報檔</button>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table pri-table">
+        <thead><tr>
+          <th class="p-act">操作</th>
+          <th class="p-name">化學品清單名稱</th>
+          <th class="p-sds">SDS／檔案</th>
+          <th class="p-sub">符合子分類</th>
+          <th class="p-haz">危害標示</th>
+          <th class="p-org">組織部門</th>
+          <th class="p-sup">製造者、輸入者或供應者</th>
+          <th class="p-upd">更新時間</th>
+        </tr></thead>
+        <tbody id="pri-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+    <div class="pri-summary" id="pri-summary"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/priority-rules.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/sds-schema.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/priority-template.js?v=0dff829"></script>
+  <script src="../assets/js/priority-export.js?v=0dff829"></script>
+  <script src="../assets/js/pages/priority-chem.js?v=0dff829"></script>
+</body>
+</html>

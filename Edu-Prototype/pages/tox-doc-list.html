@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>毒化物文件管理 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/tox-doc.css?v=0dff829">
+</head>
+<body data-page="tox-doc-list" data-menu="tox-doc" data-title="毒化物文件管理">
+  <main id="page-content">
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="文件編號、管制編號、運作人名稱、涵蓋物質名稱" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label" for="q-org">組織部門</label><div class="form-field"><div class="form-inline"><select id="q-org"></select><label class="chk-inline"><input type="checkbox" id="q-sub" checked>含下層組織</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-type">文件類型</label><div class="form-field"><select id="q-type"><option value="">全部</option><option>許可證</option><option>登記文件</option><option>核可文件</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-valid">有效期限狀態</label><div class="form-field"><select id="q-valid"><option value="">全部</option><option value="valid" selected>有效</option><option value="expired">已逾期</option></select></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary write-only" id="btn-add">新增文件</button>
+      <button type="button" class="btn btn-danger write-only" id="btn-del">刪除文件</button>
+      <button type="button" class="btn btn-secondary" id="btn-export">匯出 Excel</button>
+      <span class="poc-badge" title="Excel 為實際下載，內容為目前查詢結果">POC</span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table doc-table">
+        <thead><tr>
+          <th class="col-check write-only"><input type="checkbox" id="chk-all" aria-label="全選"></th>
+          <th class="col-act1">檢視</th>
+          <th class="col-act1 write-only">編輯</th>
+          <th class="c-subs">內含毒化物</th>
+          <th class="c-type">文件類型</th>
+          <th class="c-no">文件編號</th>
+          <th class="c-att">附件</th>
+          <th class="c-ctrl">管制編號</th>
+          <th class="c-until">有效期限</th>
+          <th class="c-org">組織部門</th>
+          <th class="c-upd">更新日期</th>
+        </tr></thead>
+        <tbody id="doc-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/pages/tox-doc-list.js?v=0dff829"></script>
+</body>
+</html>

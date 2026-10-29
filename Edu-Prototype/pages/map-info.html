@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平面圖基本資料 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/map.css?v=0dff829">
+</head>
+<body data-page="map-info" data-menu="map" data-title="化學品平面圖基本資料">
+  <main id="page-content">
+    <div class="action-bar" id="info-actions" hidden>
+      <button type="button" class="btn btn-primary manager-only" id="btn-hcard">匯出 H-Card</button>
+    </div>
+    <div class="card" id="info-card">
+      <div class="form-group-title">一、圖檔資訊</div>
+      <div class="form-row"><label class="form-label required">組織部門</label><div class="form-field" data-f="orgId"><select></select><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label required">化學品平面圖名稱</label><div class="form-field" data-f="name"><input type="text" maxlength="60" placeholder="例如：化學館 2F 實驗室配置圖"><div class="form-error"></div></div></div>
+
+      <div class="form-group-title">二、基本資訊 <span class="group-hint">※以下欄位為 H-Card 建議提供資訊，若有填寫將可於匯出時顯示</span></div>
+      <div class="form-row"><label class="form-label">建築物名稱／結構</label><div class="form-field" data-f="building"><input type="text" maxlength="60" placeholder="例如：化學館／RC 四層"></div></div>
+      <div class="form-row"><label class="form-label">場所人員概況／使用時段</label><div class="form-field" data-f="occupancy"><textarea maxlength="200" placeholder="例如：教師與學生約 40 人／週一至週五 08:00-18:00"></textarea></div></div>
+      <div class="form-row"><label class="form-label">場所用途</label><div class="form-field" data-f="usage"><input type="text" maxlength="60" placeholder="例如：教學、研究、儲存"></div></div>
+      <div class="form-row"><label class="form-label">運作時間</label><div class="form-field" data-f="operatingHours"><input type="text" maxlength="60" placeholder="例如：週一至週五 08:00-18:00"></div></div>
+      <div class="form-row"><label class="form-label">救災專人姓名</label><div class="form-field" data-f="rescuerName"><input type="text" maxlength="30" placeholder="例如：王小明"></div></div>
+      <div class="form-row"><label class="form-label">救災專人聯絡方式</label><div class="form-field" data-f="rescuerContact"><input type="text" maxlength="40" placeholder="例如：0912-345-678"></div></div>
+      <div class="form-row"><label class="form-label">室內可燃性材料說明</label><div class="form-field" data-f="flammableNote"><input type="text" maxlength="200" placeholder="例如：實驗桌為耐燃材質，無裝潢木作"></div></div>
+      <div class="form-row"><label class="form-label">備註</label><div class="form-field" data-f="remark"><textarea maxlength="300"></textarea></div></div>
+
+      <div class="form-group-title">三、平面圖說明 <span class="group-hint">※此說明欄位會在匯出 H-Card 時顯示於圖面下方</span></div>
+      <div class="form-row"><label class="form-label">說明</label><div class="form-field" data-f="description"><textarea maxlength="500" placeholder="可輸入場所概況、危害資訊等補充資訊"></textarea></div></div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary write-only" id="btn-save">儲存</button>
+        <button type="button" class="btn btn-secondary" id="btn-cancel">取消</button>
+        <button type="button" class="btn btn-secondary write-only" id="btn-to-edit" hidden>編輯資訊</button>
+      </div>
+    </div>
+    <section id="map-preview" class="card" hidden>
+      <h2 class="card-title">平面圖圖面</h2>
+      <div class="mr-view-wrap"><div id="map-canvas"></div></div>
+      <h2 class="card-title map-sub-title">區塊、位置與化學品</h2>
+      <table class="table map-block-table" id="map-block-table">
+        <thead><tr><th class="c-blk">區塊</th><th class="c-pos">關聯位置</th><th>化學品（名稱／組織／單位／最大儲存量／最大使用量）</th></tr></thead>
+        <tbody id="map-block-body"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/map-render.js?v=0dff829"></script>
+  <script src="../assets/js/pages/map-info.js?v=0dff829"></script>
+</body>
+</html>

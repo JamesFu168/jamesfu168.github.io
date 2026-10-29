@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>系統日誌 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/syslog.css?v=0dff829">
+</head>
+<body data-page="syslog" data-menu="syslog" data-title="系統日誌" data-no-view-log>
+  <main id="page-content">
+    <p class="sl-note"><span class="poc-badge">POC 模擬</span> <span id="sl-note-text"></span></p>
+
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid sl-grid">
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="人員姓名、帳號、操作動作、摘要、模組" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label" for="q-action">操作動作</label><div class="form-field"><select id="q-action"></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-from">操作日期</label><div class="form-field"><div class="form-inline sl-dates"><input type="date" id="q-from" class="input"><span>～</span><input type="date" id="q-to" class="input" aria-label="操作日期迄"></div></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary admin-only" id="btn-export">匯出系統日誌</button>
+      <span class="poc-badge" title="Excel 為實際下載，內容為目前查詢結果">POC</span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table sl-table">
+        <thead><tr>
+          <th class="sl-at">操作時間</th>
+          <th class="sl-user">操作人員</th>
+          <th class="sl-role">角色</th>
+          <th class="sl-addr">位址</th>
+          <th class="sl-mod">模組</th>
+          <th class="sl-act">操作動作</th>
+          <th class="sl-sum">操作內容</th>
+          <th class="sl-res">結果</th>
+        </tr></thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+    <div class="sl-pager" id="sl-pager"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/pages/syslog.js?v=0dff829"></script>
+</body>
+</html>

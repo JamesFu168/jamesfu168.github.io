@@ -1,0 +1,52 @@
+/* H-Card 匯出預覽（T11） */
+.hc-tool-row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; }
+.hc-tool-label { color: var(--c-muted); margin-right: 8px; font-size: 13px; }
+.hc-format, .hc-tool-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.hc-tool-hint { margin-top: 10px; font-size: 12px; color: var(--c-muted); }
+.hc-title { margin: 0 0 6px; font-size: 20px; color: var(--c-side); }
+.hc-meta { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-bottom: 14px; font-size: 13px; color: var(--c-text); }
+.hc-issues ul { margin: 0; padding-left: 0; list-style: none; }
+.hc-issues li { padding: 4px 0; line-height: 1.6; }
+.hc-issues .tag { margin-right: 8px; }
+.hc-ok { margin: 0; color: #1d7a3f; font-weight: bold; }
+.hc-map-wrap { overflow-x: auto; border: 1px solid var(--c-border); border-radius: 6px; background: #fff; }
+.hc-desc { margin: 10px 0 0; line-height: 1.6; }
+.hc-nodata { text-align: center; padding: 36px 20px; color: var(--c-muted); background: #f5f8fb; border: 1px dashed var(--c-border); border-radius: 6px; }
+.hc-info, .hc-overview { width: 100%; border-collapse: collapse; }
+.hc-info th, .hc-info td, .hc-overview th, .hc-overview td { border: 1px solid var(--c-border); padding: 6px 10px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.hc-info th, .hc-overview th { background: var(--c-th); width: 15%; white-space: nowrap; }
+.hc-info td { width: 35%; }
+.hc-overview { width: auto; min-width: 420px; }
+.hc-overview th { width: auto; }
+.hc-pics { margin-top: 10px; font-size: 13px; line-height: 1.6; }
+.hc-scroll { overflow-x: auto; }
+.hc-table { border-collapse: collapse; width: 100%; min-width: 1080px; font-size: 12px; }
+.hc-table th, .hc-table td { border: 1px solid var(--c-border); padding: 4px 5px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.hc-table th { background: var(--c-th); white-space: normal; }
+.hc-table th.hc-hz { width: 44px; padding: 4px 2px; }
+.hc-table th.hc-hz, .hc-table td.hc-hit, .hc-table td.hc-cell { text-align: center; }
+.hc-table td.hc-hit { font-weight: bold; color: #b42318; }
+.hc-table td.hc-nosds { font-size: 11px; color: var(--c-muted); background: #f7f7f7; text-align: center; }
+.hc-table td.hc-empty { text-align: center; color: var(--c-muted); padding: 12px; }
+.hc-sec-title { margin: 18px 0 8px; font-size: 15px; color: var(--c-primary); }
+.hc-sec-title:first-child { margin-top: 0; }
+.hc-foot { margin: 10px 0 0; font-size: 13px; color: var(--c-text); font-weight: bold; }
+.hc-notes { margin: 0; padding-left: 20px; line-height: 1.7; font-size: 13px; }
+
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  body { background: #fff; }
+  .app-header, .app-sidebar, .app-footer, .breadcrumb, .page-title, .hc-toolbar, .no-print, .hc-issues, .dialog-mask, #toast-wrap { display: none !important; }
+  .app-shell, .app-body { display: block; min-height: 0; }
+  .app-main { padding: 0; }
+  .card { border: 0; padding: 0 0 8px; margin-bottom: 8px; break-inside: auto; }
+  .hc-map-wrap { overflow: visible; border: 0; }
+  .hc-map-wrap .mr-stage { zoom: 0.9; }
+  .hc-scroll { overflow: visible; }
+  .hc-table { min-width: 0; font-size: 9px; }
+  .hc-table th, .hc-table td { padding: 2px 3px; }
+  .hc-table thead { display: table-header-group; }
+  .hc-table tr { break-inside: avoid; }
+  .hc-sec-title { break-after: avoid; }
+}
+.hc-sec-empty { margin: 0 0 6px; font-size: 13px; color: var(--c-muted); }

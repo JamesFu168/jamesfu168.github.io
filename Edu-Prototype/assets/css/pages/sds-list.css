@@ -1,0 +1,19 @@
+/* SDS 查詢（UI-05） */
+.list-total { color: var(--c-muted); font-size: 14px; }
+.sds-table { min-width: 1120px; }
+.sds-table .col-act1 { width: 52px; text-align: center; }
+.sds-table .c-idx { width: 124px; }
+.sds-table .c-part { width: 100px; }
+.sds-table .c-sup { width: 170px; }
+.sds-table .c-date { width: 112px; }
+.sds-table .c-pdf { width: 64px; text-align: center; }
+.sds-table .c-tox { width: 96px; }
+.sds-table .c-comp { width: 78px; }
+.sds-table .c-st { width: 70px; }
+.sds-table .pdf-ico { cursor: help; }
+.sds-table .comp-full { color: var(--c-ok); font-weight: bold; }
+.sds-table .comp-part { color: #a66a00; }
+.sds-table .dim { color: var(--c-muted); }
+#filter-panel .form-label { width: 96px; }
+#filter-panel .filter-grid { grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+#filter-panel .form-field .form-inline .input { min-width: 0; }

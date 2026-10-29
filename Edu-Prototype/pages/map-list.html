@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>化學品平面圖查詢 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/map.css?v=0dff829">
+</head>
+<body data-page="map-list" data-menu="map" data-title="平面圖管理">
+  <main id="page-content">
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label">組織部門</label><div class="form-field"><select id="f-org"></select></div></div>
+          <div class="form-row"><label class="form-label">關鍵字</label><div class="form-field"><input type="text" id="f-keyword" maxlength="50" placeholder="圖名、建築物、救災專人" autocomplete="off"></div></div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" class="btn btn-primary" id="btn-search">查詢</button>
+          <button type="button" class="btn btn-secondary" id="btn-clear">清除</button>
+        </div>
+      </div>
+    </div>
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary write-only" id="btn-add">新增平面圖</button>
+      <button type="button" class="btn btn-danger write-only" id="btn-del">刪除平面圖</button>
+    </div>
+    <div class="table-wrap">
+      <table class="table map-table">
+        <thead><tr>
+          <th class="col-check write-only"><input type="checkbox" id="chk-all" aria-label="全選"></th>
+          <th class="c-act">檢視</th><th class="c-act write-only">圖面</th><th class="c-act write-only">編輯</th>
+          <th class="c-org">組織部門</th><th class="c-name">化學品平面圖名稱</th><th class="c-bld">建築物名稱／結構</th>
+          <th class="c-resc">救災專人姓名</th><th class="c-contact">聯絡方式</th><th class="c-remark">備註</th><th class="c-time">更新時間</th>
+        </tr></thead>
+        <tbody id="map-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="map-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/map-list.js?v=0dff829"></script>
+</body>
+</html>

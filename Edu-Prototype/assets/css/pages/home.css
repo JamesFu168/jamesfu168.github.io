@@ -1,0 +1,33 @@
+/* 流程圖首頁（UI-02） */
+.flow { display: flex; align-items: stretch; justify-content: center; gap: 0; background: #fff; border: 1px solid var(--c-border); border-radius: 8px; padding: 18px 12px; }
+.flow-stage {
+  flex: 1 1 0; min-width: 0; max-width: 280px; border: 2px solid var(--stc, #3d5a80); border-radius: 10px; padding: 10px 8px 12px;
+  background: color-mix(in srgb, var(--stc, #3d5a80) 6%, #fff); display: flex; flex-direction: column; gap: 10px;
+}
+.st-base { --stc: #5f7a99; } .st-p { --stc: #f4a63d; } .st-d { --stc: #6bb432; }
+.st-daily { --stc: #2a9d8f; } .st-c { --stc: #1f73b8; } .st-a { --stc: #7b4f9d; }
+.stage-head { display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: bold; color: var(--stc); font-size: 15px; padding-bottom: 6px; border-bottom: 1px dashed var(--stc); }
+.stage-tag { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: var(--stc); color: #fff; align-items: center; justify-content: center; font-size: 13px; font-family: Arial, sans-serif; }
+
+.flow-node {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 10px 6px; background: #fff;
+  border: 1px solid var(--c-border); border-left: 4px solid var(--stc); border-radius: 6px; color: var(--c-text); transition: transform .12s, box-shadow .12s;
+}
+.flow-node:hover, .flow-node:focus-visible {
+  text-decoration: none; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.18); border-color: var(--stc); outline: 2px solid var(--stc); outline-offset: 1px;
+}
+.node-icon { font-size: 24px; line-height: 1; }
+.node-text { display: flex; flex-direction: column; gap: 2px; }
+.node-name { font-weight: bold; font-size: 14px; color: var(--stc); }
+.node-desc { font-size: 12px; color: var(--c-muted); line-height: 1.4; }
+.node-hint { font-size: 11px; color: #946200; background: #fff3d6; border-radius: 8px; padding: 1px 6px; margin-top: 2px; align-self: center; }
+
+.flow-arrow { flex: 0 0 22px; display: flex; align-items: center; justify-content: center; }
+.flow-arrow span { width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 12px solid #9fb2c6; }
+.flow-note { margin: 12px 4px 0; color: var(--c-muted); font-size: 13px; }
+
+@media (max-width: 1180px) {
+  .flow { flex-direction: column; }
+  .flow-arrow { flex: 0 0 24px; }
+  .flow-arrow span { border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 12px solid #9fb2c6; border-bottom: 0; }
+}

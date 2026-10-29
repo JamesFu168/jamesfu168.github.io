@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>化學品維護 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/chem.css?v=0dff829">
+</head>
+<body data-page="chem-form" data-menu="chem" data-title="化學品維護">
+  <main id="page-content">
+    <div class="card" id="chem-card">
+      <div class="form-group-title">一、所屬組織與 SDS 關聯</div>
+      <div class="form-row"><label class="form-label required">組織部門</label><div class="form-field" data-f="orgId"><select></select><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">SDS 有／無</label><div class="form-field" data-f="hasSds">
+        <div class="radio-line"><label><input type="radio" name="hasSds" value="yes" checked>有</label><label><input type="radio" name="hasSds" value="no">無</label></div>
+      </div></div>
+      <div class="form-row" id="row-sds"><label class="form-label required">選取 SDS</label><div class="form-field" data-f="sdsId"><select></select><div class="form-error"></div></div></div>
+      <div class="form-row" id="row-src" hidden><label class="form-label">來源摘要</label><div class="form-field"><div class="src-panel" id="src-panel"></div><div id="src-extra"></div></div></div>
+      <div class="form-row"><label class="form-label" id="lb-nameZh">化學品中文名稱</label><div class="form-field" data-f="nameZh"><input type="text" maxlength="80" autocomplete="off"><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label" id="lb-nameEn">化學品英文名稱</label><div class="form-field" data-f="nameEn"><input type="text" maxlength="80" autocomplete="off"></div></div>
+      <div class="form-row"><label class="form-label">製造者／輸入者／供應者名稱</label><div class="form-field" data-f="supplierName"><input type="text" maxlength="80" autocomplete="off"></div></div>
+      <div class="form-row"><label class="form-label">料號</label><div class="form-field" data-f="partNo"><input type="text" maxlength="40" autocomplete="off"></div></div>
+      <div class="form-row"><label class="form-label">電話</label><div class="form-field" data-f="supplierPhone"><input type="text" maxlength="30" autocomplete="off"><div class="hint-gray" id="hint-nosds" hidden>無 SDS 的化學品不列入毒化物判斷</div></div></div>
+      <div class="form-row" id="row-unlink" hidden><label class="form-label"></label><div class="form-field"><button type="button" class="btn btn-secondary btn-sm write-only" id="btn-unlink">解除關聯改為手填</button><span class="hint-gray hint-inline">名稱與供應商由所選 SDS 帶入，不可直接修改</span></div></div>
+
+      <div class="form-group-title">二、位置與作業說明</div>
+      <div class="form-row"><label class="form-label">使用地點</label><div class="form-field" data-f="usePositionId"><div class="field-line"><select></select><button type="button" class="btn btn-secondary btn-pos write-only">維護</button></div></div></div>
+      <div class="form-row"><label class="form-label">儲存地點</label><div class="form-field" data-f="storePositionId"><div class="field-line"><select></select><button type="button" class="btn btn-secondary btn-pos write-only">維護</button></div></div></div>
+      <div class="form-row"><label class="form-label">儲存地點說明</label><div class="form-field" data-f="storeNote"><textarea maxlength="300"></textarea></div></div>
+      <div class="form-row"><label class="form-label">作業情況說明</label><div class="form-field" data-f="operationNote"><textarea maxlength="300"></textarea></div></div>
+
+      <div class="form-group-title">三、管控數量</div>
+      <div class="form-row"><label class="form-label required">數值單位</label><div class="form-field narrow" data-f="unit"><select><option value="">請選擇</option><option>公斤</option><option>公克</option><option>公升</option><option>毫升</option></select><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">最大儲存量</label><div class="form-field" data-f="maxStore"><div class="unit-line"><input type="number" min="0" step="any"><span class="unit-suffix"></span></div><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">平均儲存量</label><div class="form-field" data-f="avgStore"><div class="unit-line"><input type="number" min="0" step="any"><span class="unit-suffix"></span></div><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">最大使用量</label><div class="form-field" data-f="maxUse"><div class="unit-line"><input type="number" min="0" step="any"><span class="unit-suffix"></span></div><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">平均使用量</label><div class="form-field" data-f="avgUse"><div class="unit-line"><input type="number" min="0" step="any"><span class="unit-suffix"></span></div><div class="form-error"></div></div></div>
+      <div class="group-note" id="qty-note">最大／平均量為管理設定值，不等同實際結存；每日用量必須使用此單位</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary write-only" id="btn-save">儲存</button>
+        <button type="button" class="btn btn-secondary" id="btn-cancel">取消</button>
+      </div>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/position-dialog.js?v=0dff829"></script>
+  <script src="../assets/js/pages/chem-form.js?v=0dff829"></script>
+</body>
+</html>

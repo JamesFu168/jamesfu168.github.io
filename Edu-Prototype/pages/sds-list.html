@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SDS 查詢與建置 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/sds-list.css?v=0dff829">
+</head>
+<body data-page="sds-list" data-menu="sds" data-title="SDS 查詢與建置">
+  <main id="page-content">
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="名稱、其他名稱、SDS 索引碼或 CAS" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label" for="q-pdf">SDS 檔案</label><div class="form-field"><select id="q-pdf"><option value="">全部</option><option value="yes">有檔案</option><option value="no">無檔案</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-status">SDS 狀態</label><div class="form-field"><select id="q-status"><option value="">全部</option><option value="有效">有效</option><option value="停用">停用</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-complete">資料完整度</label><div class="form-field"><select id="q-complete"><option value="">全部</option><option value="full">完整（16/16）</option><option value="part">未完整</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-from">製表日期</label><div class="form-field"><div class="form-inline"><input type="date" id="q-from" class="input"><span>～</span><input type="date" id="q-to" class="input" aria-label="製表日期迄"></div></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <div class="dropdown write-only" id="dd-add">
+        <div class="split-btn">
+          <button type="button" class="btn btn-primary" id="btn-add">新增 SDS</button>
+          <button type="button" class="btn btn-primary split-caret" data-dropdown-toggle aria-label="新增方式" aria-haspopup="true">▾</button>
+        </div>
+        <div class="dropdown-menu">
+          <button type="button" class="dropdown-item" id="btn-add-single">單筆資料新增</button>
+          <button type="button" class="dropdown-item" id="btn-add-parse">SDS 智能解析</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-danger write-only" id="btn-del">刪除 SDS</button>
+      <div class="dropdown" id="dd-export">
+        <button type="button" class="btn btn-secondary btn-caret" data-dropdown-toggle aria-haspopup="true">匯出</button>
+        <div class="dropdown-menu">
+          <button type="button" class="dropdown-item" data-export="word">匯出 Word</button>
+          <button type="button" class="dropdown-item" data-export="excel">匯出 Excel</button>
+          <button type="button" class="dropdown-item" data-export="pdf">匯出 PDF</button>
+        </div>
+      </div>
+      <span class="poc-badge" title="Excel 為實際下載；Word 以 HTML 另存 .doc；PDF 以列印預覽代替">POC</span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table sds-table">
+        <thead><tr>
+          <th class="col-check write-only"><input type="checkbox" id="chk-all" aria-label="全選"></th>
+          <th class="col-act1">檢視</th>
+          <th class="col-act1 write-only">編輯</th>
+          <th class="c-name sortable" data-sort="name">化學品名稱<span class="sort-ind"></span></th>
+          <th class="c-idx sortable" data-sort="indexCode">SDS 索引碼<span class="sort-ind"></span></th>
+          <th class="c-part">料號</th>
+          <th class="c-sup">製造者／輸入者／供應者</th>
+          <th class="c-date sortable" data-sort="issueDate">製表日期<span class="sort-ind"></span></th>
+          <th class="c-pdf">SDS 檔案</th>
+          <th class="c-tox">毒化物識別</th>
+          <th class="c-comp">完整度</th>
+          <th class="c-st">狀態</th>
+        </tr></thead>
+        <tbody id="sds-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/pages/sds-list.js?v=0dff829"></script>
+</body>
+</html>

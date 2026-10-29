@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>自主檢查 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/check.css?v=0dff829">
+</head>
+<body data-page="check" data-menu="check" data-title="自主檢查">
+  <main id="page-content">
+    <div class="chk-notice"><span class="poc-badge">示範規則</span> 針對化學品設定與回報的示範檢查（效期、數量上下限、未回報），非法規判定；SDS 十六大項檢查請至「<a class="btn-text-link" id="lnk-sds-check" href="sds-check.html">SDS 檢查</a>」。</div>
+    <div class="chk-subnote">示範規則（展示假設 A-19）：效期只示範「製表日期超過 3 年」；未來三個月內即將到期的提醒待規則確認後補充。</div>
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-cat">類別</label><div class="form-field"><select id="q-cat"></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-org">組織部門</label><div class="form-field"><div class="form-inline"><select id="q-org"></select><label class="chk-inline"><input type="checkbox" id="q-sub" checked>含下層組織</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="品項、SDS、組織、原因" autocomplete="off"></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="card chk-summary" id="chk-summary"></div>
+
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary" id="btn-recheck">重新檢查</button>
+      <span class="chk-time">最後檢查時間：<b id="chk-time"></b></span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table chk-list">
+        <thead><tr>
+          <th class="c-cat">類別</th><th class="c-item">品項／SDS</th><th class="c-org">組織</th><th class="c-src">位置或來源</th>
+          <th>異常原因</th><th class="c-time">檢查時間</th><th class="c-link">來源入口</th>
+        </tr></thead>
+        <tbody id="chk-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/check.js?v=0dff829"></script>
+</body>
+</html>

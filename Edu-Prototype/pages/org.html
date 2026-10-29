@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>組織與人員管理 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/org.css?v=0dff829">
+</head>
+<body data-page="org" data-menu="org" data-title="組織與人員管理">
+  <main id="page-content">
+    <div class="org-layout">
+      <section class="org-left card">
+        <div class="org-search"><input type="text" id="org-search" class="input" placeholder="搜尋組織名稱" autocomplete="off"></div>
+        <div class="action-bar org-tools write-only">
+          <button type="button" class="btn btn-primary btn-sm" id="btn-org-add">新增組織</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-org-edit">編輯組織</button>
+          <button type="button" class="btn btn-danger btn-sm" id="btn-org-del">刪除組織</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-org-up" title="在同一上層內上移">上移</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-org-down" title="在同一上層內下移">下移</button>
+        </div>
+        <div class="org-tree" id="org-tree" role="tree"></div>
+      </section>
+      <section class="org-right card">
+        <div class="action-bar">
+          <h2 class="org-title" id="org-title"></h2>
+          <span class="spacer"></span>
+          <button type="button" class="btn btn-primary write-only" id="btn-user-add">新增人員</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table org-user-table">
+            <thead><tr>
+              <th class="col-act1 write-only">修改</th><th class="col-act1 write-only">刪除</th>
+              <th class="c-emp">員工編號</th><th class="c-acc">帳號</th><th class="c-name">姓名</th><th class="c-role">角色</th><th>Email</th><th class="c-title">職稱</th>
+            </tr></thead>
+            <tbody id="user-body"></tbody>
+          </table>
+        </div>
+        <div class="list-count" id="user-count"></div>
+      </section>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/org.js?v=0dff829"></script>
+</body>
+</html>

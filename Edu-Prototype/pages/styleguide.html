@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>元件樣式範例 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+</head>
+<body data-page="styleguide" data-menu="" data-title="元件樣式範例">
+  <main id="page-content">
+    <p class="muted">開發者對照頁，不放入選單。後續 Task 請直接複製下列結構。</p>
+
+    <div class="card">
+      <h2 class="card-title">按鈕</h2>
+      <div class="action-bar">
+        <button class="btn btn-primary">主要按鈕</button>
+        <button class="btn btn-secondary">次要按鈕</button>
+        <button class="btn btn-danger">危險按鈕</button>
+        <button class="btn btn-link">連結按鈕</button>
+        <button class="btn btn-primary" disabled>停用</button>
+        <button class="btn btn-primary write-only">寫入按鈕（.write-only，唯讀者看不到）</button>
+        <span class="poc-badge">POC 模擬</span>
+      </div>
+    </div>
+
+    <h2 class="card-title">清單頁結構：查詢條件 → 操作列 → 表格 → 共 N 筆</h2>
+    <div class="filter-panel" id="demo-filter">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label">關鍵字</label><div class="form-field"><input type="text" placeholder="名稱或編號"></div></div>
+          <div class="form-row"><label class="form-label">狀態</label><div class="form-field"><select><option>全部</option><option>有效</option><option>停用</option></select></div></div>
+        </div>
+        <div class="filter-actions"><button class="btn btn-primary">查詢</button><button class="btn btn-secondary">清除</button></div>
+      </div>
+    </div>
+    <div class="action-bar">
+      <button class="btn btn-primary write-only">新增</button>
+      <button class="btn btn-danger write-only">刪除</button>
+      <button class="btn btn-secondary">匯出</button>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th class="col-check"><input type="checkbox"></th><th>編號</th><th>名稱</th><th>狀態</th><th class="col-act">操作</th></tr></thead>
+        <tbody>
+          <tr><td class="col-check"><input type="checkbox"></td><td>SDS-001</td><td>範例化學品 A</td><td>有效</td>
+            <td class="col-act"><button class="act-icon" title="檢視">🔍</button><button class="act-icon write-only" title="修改">✏️</button><button class="act-icon write-only" title="刪除">🗑</button></td></tr>
+          <tr><td class="col-check"><input type="checkbox"></td><td>SDS-002</td><td>範例化學品 B</td><td>停用</td>
+            <td class="col-act"><button class="act-icon" title="檢視">🔍</button><button class="act-icon write-only" title="修改">✏️</button><button class="act-icon write-only" title="刪除">🗑</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="list-count">共 2 筆</div>
+
+    <h2 class="card-title" style="margin-top:18px">空清單</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th class="col-check"><input type="checkbox"></th><th>編號</th><th>名稱</th><th class="col-act">操作</th></tr></thead>
+        <tbody><tr class="empty-row"><td colspan="4">查無符合條件的資料</td></tr></tbody>
+      </table>
+    </div>
+    <div class="list-count">共 0 筆</div>
+
+    <div class="card" style="margin-top:18px">
+      <h2 class="card-title">表單列（標籤固定寬度並相對輸入框垂直置中；錯誤文字在輸入框下方，不拉偏標籤）</h2>
+      <div class="form-row"><label class="form-label required">名稱</label><div class="form-field"><input type="text" value="正常狀態"></div></div>
+      <div class="form-row"><label class="form-label required">電子郵件</label>
+        <div class="form-field has-error"><input type="text" value="not-an-email"><div class="form-error">電子郵件格式不正確</div></div></div>
+      <div class="form-row"><label class="form-label">類型</label><div class="form-field"><select><option>請選擇</option><option>選項一</option></select></div></div>
+      <div class="form-row"><label class="form-label">備註</label><div class="form-field"><textarea placeholder="多行文字"></textarea></div></div>
+      <div class="form-row"><label class="form-label">切換錯誤</label>
+        <div class="form-field" id="toggle-field"><input type="text" placeholder="按右側按鈕觀察標籤是否位移"><div class="form-error"></div></div>
+        <button class="btn btn-secondary" id="btn-toggle-err" style="margin-left:10px">顯示／清除錯誤</button></div>
+      <div class="form-actions"><button class="btn btn-primary write-only">儲存</button><button class="btn btn-secondary">取消</button></div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Dialog、確認框、Toast（App.dialog／App.confirm／App.toast）</h2>
+      <div class="action-bar">
+        <button class="btn btn-secondary" id="btn-dialog">App.dialog</button>
+        <button class="btn btn-secondary" id="btn-confirm">App.confirm</button>
+        <button class="btn btn-danger" id="btn-confirm-danger">App.confirm（危險）</button>
+        <button class="btn btn-secondary" id="btn-toast-ok">Toast 成功</button>
+        <button class="btn btn-secondary" id="btn-toast-err">Toast 錯誤</button>
+        <button class="btn btn-secondary" id="btn-toast-warn">Toast 警告</button>
+        <button class="btn btn-secondary" id="btn-toast-info">Toast 一般</button>
+      </div>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script>
+    $(document).on('app:ready', function () {
+      $('#btn-toggle-err').on('click', function () {
+        var $f = $('#toggle-field');
+        var on = !$f.hasClass('has-error');
+        $f.toggleClass('has-error', on).find('.form-error').text(on ? '此欄位為必填' : '');
+      });
+      $('#btn-dialog').on('click', function () {
+        App.dialog({
+          title: '範例 Dialog', width: 480,
+          body: '<div class="form-row"><label class="form-label required">名稱</label><div class="form-field"><input type="text"></div></div><p class="muted">按「儲存」會顯示 Toast 並關閉。</p>',
+          buttons: [
+            { text: '取消', cls: 'btn-secondary' },
+            { text: '儲存', cls: 'btn-primary', onClick: function () { App.toast('已儲存（範例）', 'success'); } }
+          ]
+        });
+      });
+      $('#btn-confirm').on('click', function () {
+        App.confirm('確定要執行此操作嗎？').then(function (ok) { App.toast(ok ? '你按了確定' : '你按了取消', 'info'); });
+      });
+      $('#btn-confirm-danger').on('click', function () {
+        App.confirm('刪除後無法復原，確定刪除？', { okText: '刪除', danger: true }).then(function (ok) { App.toast(ok ? '已刪除（範例）' : '已取消', ok ? 'success' : 'info'); });
+      });
+      $('#btn-toast-ok').on('click', function () { App.toast('操作成功', 'success'); });
+      $('#btn-toast-err').on('click', function () { App.toast('發生錯誤', 'error'); });
+      $('#btn-toast-warn').on('click', function () { App.toast('請留意', 'warning'); });
+      $('#btn-toast-info').on('click', function () { App.toast('一般訊息', 'info'); });
+    });
+  </script>
+</body>
+</html>

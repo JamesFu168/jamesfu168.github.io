@@ -1,0 +1,23 @@
+/* 優先管理化學品查詢（V2-T06） */
+#filter-panel .form-label { width: 96px; }
+#filter-panel .filter-grid { grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+#filter-panel .form-field .form-inline .input { min-width: 0; }
+.sub-checks { flex-wrap: wrap; height: auto; min-height: 36px; column-gap: 14px; }
+.pri-notice { background: #fff6d6; border: 1px solid #f0cf85; color: #7a5200; border-radius: 6px; padding: 9px 14px; margin-bottom: 12px; font-size: 14px; }
+.pri-notice .poc-badge { margin-right: 6px; }
+.list-total { color: var(--c-muted); font-size: 14px; }
+.pri-table { min-width: 1100px; }
+.pri-table th, .pri-table td { padding: 9px 6px; }
+.pri-table .p-act { width: 52px; text-align: center; }
+.pri-table .p-name { width: 120px; }
+.pri-table .p-sds { width: 170px; }
+.pri-table .p-sub { width: 190px; }
+.pri-table .p-haz { width: 110px; }
+.pri-table .p-org { width: 120px; }
+.pri-table .p-sup { width: 150px; }
+.pri-table .p-upd { width: 100px; }
+.pri-table .tag { margin: 0 4px 4px 0; }
+.pri-table .file-ok { color: var(--c-primary); font-weight: bold; margin-left: 6px; cursor: help; }
+.pri-table .dim { color: var(--c-muted); }
+.pri-summary { margin-top: 10px; padding: 8px 14px; background: #f7fafd; border: 1px solid var(--c-border); border-radius: 6px; font-size: 14px; color: var(--c-side); }
+.pri-table th { white-space: normal; }

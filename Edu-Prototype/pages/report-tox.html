@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>毒化物申報 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/report.css?v=0dff829">
+</head>
+<body data-page="report-tox" data-menu="report-tox" data-title="毒化物申報">
+  <main id="page-content">
+    <div class="rpt-note">本頁讀取由 SDS 識別為毒化物的化學品；編輯請回化學品管理。</div>
+
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-org">組織部門</label><div class="form-field"><div class="form-inline"><select id="q-org"></select><label class="chk-inline"><input type="checkbox" id="q-sub" checked>含下層組織</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-sds">選取 SDS</label><div class="form-field"><div class="form-inline"><select id="q-sds"></select><label class="chk-inline"><input type="checkbox" id="q-unbound">未綁定毒化物文件</label></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-pdf">SDS 檔案</label><div class="form-field"><select id="q-pdf"><option value="">全部</option><option value="yes">有檔案</option><option value="no">無檔案</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-status">SDS 狀態</label><div class="form-field"><select id="q-status"><option value="">全部</option><option value="有效">有效</option><option value="停用">停用</option></select></div></div>
+          <div class="form-row"><label class="form-label" for="q-from">更新日期</label><div class="form-field"><div class="form-inline"><input type="date" id="q-from" class="input"><span>～</span><input type="date" id="q-to" class="input" aria-label="更新日期迄"></div></div></div>
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="化學品名稱、料號、供應商、SDS 索引碼" autocomplete="off"></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <div class="dropdown" id="dd-export">
+        <button type="button" class="btn btn-secondary btn-caret" data-dropdown-toggle aria-haspopup="true">匯出 Excel</button>
+        <div class="dropdown-menu">
+          <button type="button" class="dropdown-item" id="btn-export-tox">毒性化學物質運作紀錄表</button>
+        </div>
+      </div>
+      <span class="poc-badge" title="Excel 為實際下載；匯出僅產生檔案">POC</span>
+      <span class="rpt-hint">化學品若為混合物，報表內容會依命中的毒化物成分以多筆呈現。匯出僅產生檔案，不代表已向教育部或其他機關報送。</span>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+
+    <div class="table-wrap">
+      <table class="table rpt-table">
+        <thead><tr>
+          <th class="col-check"><input type="checkbox" id="chk-all" aria-label="全選"></th>
+          <th class="col-act1">編輯</th>
+          <th class="c-name sortable" data-sort="name">化學品清單名稱<span class="sort-ind"></span></th>
+          <th class="c-sds">SDS／檔案</th>
+          <th class="c-doc">毒化物文件</th>
+          <th class="c-haz">危害標示</th>
+          <th class="c-org sortable" data-sort="org">組織部門<span class="sort-ind"></span></th>
+          <th class="c-sup">製造者／輸入者／供應者</th>
+          <th class="c-upd sortable" data-sort="updatedAt">更新時間<span class="sort-ind"></span></th>
+        </tr></thead>
+        <tbody id="rpt-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/sds-schema.js?v=0dff829"></script>
+  <script src="../assets/js/report-monthly.js?v=0dff829"></script>
+  <script src="../assets/js/pages/report-tox.js?v=0dff829"></script>
+</body>
+</html>

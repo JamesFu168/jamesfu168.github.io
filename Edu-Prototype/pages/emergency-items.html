@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>緊急應變內容維護 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/emergency.css?v=0dff829">
+</head>
+<body data-page="emergency-items" data-menu="emergency" data-title="緊急應變內容維護">
+  <script>
+  // 標題與麵包屑需在 app.js 建殼前依 block 參數帶入區塊名稱
+  (function () {
+    var N = { manual: '緊急應變手冊', contact: '緊急聯絡資訊', map: '校園平面圖' };
+    var m = /[?&]block=([^&#]*)/.exec(location.search);
+    var k = m ? decodeURIComponent(m[1]) : '';
+    if (N.hasOwnProperty(k)) {
+      document.body.setAttribute('data-title', N[k] + '－內容維護');
+      document.title = N[k] + '－內容維護 - 教育部化學雲';
+    }
+  })();
+  </script>
+  <main id="page-content">
+    <div class="action-bar">
+      <button type="button" class="btn btn-primary write-only" id="btn-add">新增內容</button>
+      <a class="btn btn-secondary" id="btn-back">返回專區</a>
+      <span class="spacer"></span>
+      <span class="list-total" id="list-total"></span>
+    </div>
+    <div class="table-wrap">
+      <table class="table emg-table">
+        <thead><tr>
+          <th class="col-act1 write-only">編輯</th>
+          <th class="col-act1 write-only">刪除</th>
+          <th class="c-name">名稱</th>
+          <th class="c-type">內容類型</th>
+          <th class="c-sum">內容摘要</th>
+          <th class="c-by">更新人員</th>
+          <th class="c-upd">編輯日期</th>
+        </tr></thead>
+        <tbody id="item-body"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/emergency-items.js?v=0dff829"></script>
+</body>
+</html>

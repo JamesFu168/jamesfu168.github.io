@@ -1,0 +1,46 @@
+/* 化學品查詢（UI-09）與新增維護（UI-10）、位置維護 Dialog（T06） */
+.list-total { color: var(--c-muted); font-size: 14px; }
+/* T15：欄寬總和約 1094px，1400 寬視窗不需橫向捲動 */
+.chem-table { min-width: 1090px; }
+.chem-table th, .chem-table td { padding: 9px 6px; }
+.chem-table .col-act1 { width: 48px; text-align: center; }
+.chem-table th.col-act1:nth-child(4) { width: 72px; }
+.chem-table .c-name { width: 140px; }
+.chem-table .c-org { width: 90px; }
+.chem-table .c-sds { width: 100px; }
+.chem-table .c-pdf { width: 70px; text-align: center; }
+.chem-table .c-tox { width: 76px; }
+.chem-table .c-part { width: 76px; }
+.chem-table .c-pos { width: 100px; }
+.chem-table .c-unit { width: 46px; }
+.chem-table .c-upd { width: 88px; }
+.chem-table .dim { color: var(--c-muted); }
+#filter-panel .form-label { width: 96px; }
+#filter-panel .filter-grid { grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+#filter-panel .form-field .form-inline .input { min-width: 0; }
+
+/* 表單頁 */
+#chem-card .form-label { width: 210px; white-space: nowrap; }
+#chem-card .form-actions { padding-left: 210px; }
+#chem-card .form-field { max-width: 760px; }
+#chem-card .radio-line { display: flex; align-items: center; gap: 20px; height: 36px; }
+#chem-card .radio-line label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+#chem-card input[readonly] { background: #f1f4f8; color: #4a5766; cursor: not-allowed; }
+.field-line { display: flex; align-items: center; gap: 8px; }
+.field-line > select, .field-line > input { flex: 1; min-width: 0; }
+.field-line .btn { flex: none; }
+.unit-line { display: flex; align-items: center; gap: 8px; }
+.unit-line input { flex: 1; min-width: 0; }
+.unit-suffix { flex: none; min-width: 52px; text-align: center; height: 36px; line-height: 34px; padding: 0 8px; border: 1px solid #bcc8d6; border-radius: 4px; background: #f3f5f8; color: var(--c-muted); }
+#chem-card .form-field.narrow { max-width: 220px; }
+.hint-gray { color: var(--c-muted); font-size: 12px; margin-top: 4px; }
+.hint-gray.hint-inline { margin: 0 0 0 8px; }
+.src-panel.src-docs { margin-top: 8px; }
+.src-doc-list { margin: 2px 0 0; padding-left: 18px; }
+.src-panel { background: #f5f9fd; border: 1px solid #cfe0f0; border-radius: 6px; padding: 10px 14px; line-height: 1.8; }
+.src-panel .src-title { font-weight: bold; color: var(--c-side); margin-bottom: 2px; }
+.src-panel .src-row b { display: inline-block; min-width: 130px; font-weight: normal; color: var(--c-muted); }
+.src-tox-hit { color: #b3261e; font-weight: bold; }
+.group-note { color: var(--c-muted); font-size: 12px; margin: -4px 0 12px 210px; }
+@media (max-width: 900px) { #chem-card .form-actions { padding-left: 0; } .group-note { margin-left: 0; } }
+

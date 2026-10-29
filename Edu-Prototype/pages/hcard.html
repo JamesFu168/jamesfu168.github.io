@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>H-Card 匯出 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/hcard.css?v=0dff829">
+</head>
+<body data-page="hcard" data-menu="map" data-title="H-Card 匯出">
+  <main id="page-content">
+    <div class="card hc-toolbar" id="hc-toolbar" hidden>
+      <div class="hc-tool-row">
+        <div class="hc-tool-name"><span class="hc-tool-label">平面圖</span><strong id="hc-fp-name"></strong></div>
+        <div class="hc-format" role="group" aria-label="H-Card 格式">
+          <button type="button" class="btn btn-secondary hc-fmt" data-format="A">格式 A（7 類危害特性）</button>
+          <button type="button" class="btn btn-secondary hc-fmt" data-format="B">格式 B（10 類）</button>
+        </div>
+        <div class="hc-tool-actions">
+          <button type="button" class="btn btn-primary" id="btn-word">匯出 Word</button>
+          <button type="button" class="btn btn-primary" id="btn-print">列印／另存 PDF</button>
+          <button type="button" class="btn btn-secondary" id="btn-back">返回清單</button>
+        </div>
+      </div>
+      <div class="hc-tool-hint"><span class="poc-badge">POC 模擬</span> Word 以 HTML 另存為 .doc（展示假設 A-15），PDF 請於列印視窗選「另存為 PDF」。</div>
+    </div>
+    <div id="hc-doc" hidden></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/sds-schema.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/map-render.js?v=0dff829"></script>
+  <script src="../assets/js/hcard-data.js?v=0dff829"></script>
+  <script src="../assets/js/pages/hcard.js?v=0dff829"></script>
+</body>
+</html>

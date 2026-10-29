@@ -1,0 +1,54 @@
+/* V2-T08 緊急應變專區 */
+.emg-h2 { margin: 0; font-size: 17px; color: #1f2d3a; }
+.emg-alert-head { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.emg-meta { color: var(--c-muted); font-size: 13px; }
+.emg-alert-body { display: flex; gap: 16px; align-items: flex-start; }
+.emg-chips { flex: none; width: 150px; display: flex; flex-direction: column; gap: 6px; }
+.emg-chip { text-align: left; padding: 7px 12px; border: 1px solid var(--c-border); border-radius: 16px; background: #fff; color: var(--c-text); cursor: pointer; font: inherit; font-size: 14px; }
+.emg-chip:hover { background: #eef4fb; }
+.emg-chip.active { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.emg-cards { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.emg-card { border: 1px solid var(--c-border); border-radius: 6px; padding: 12px; background: #fbfdff; min-width: 0; }
+.emg-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.emg-type { font-weight: bold; }
+.emg-county { margin-left: auto; color: var(--c-muted); font-size: 13px; }
+.emg-card-title { margin: 0 0 8px; font-size: 15px; }
+.emg-kv { display: grid; grid-template-columns: 82px 1fr; gap: 2px 6px; margin: 0 0 8px; font-size: 13px; }
+.emg-kv dt { color: var(--c-muted); }
+.emg-kv dd { margin: 0; overflow-wrap: anywhere; }
+.emg-desc { font-size: 14px; line-height: 1.6; white-space: pre-wrap; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; }
+.emg-desc.open { display: block; -webkit-line-clamp: unset; line-clamp: unset; }
+.emg-more { margin-top: 4px; font-size: 13px; }
+.emg-more[hidden] { display: none; }
+.emg-empty { grid-column: 1 / -1; padding: 28px 12px; text-align: center; color: var(--c-muted); background: #f6f9fc; border: 1px dashed var(--c-border); border-radius: 6px; }
+.emg-empty-warn { color: #946200; background: #fff8e6; border-color: #f0cf85; }
+
+.emg-blocks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.emg-block { margin-bottom: 0; min-width: 0; }
+.emg-block-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.emg-block-body { max-height: 320px; overflow-y: auto; }
+.emg-list { list-style: none; margin: 0; padding: 0; }
+.emg-item { padding: 8px 0; border-bottom: 1px solid #edf1f5; overflow-wrap: anywhere; }
+.emg-item:last-child { border-bottom: 0; }
+.emg-iname { font-weight: bold; margin-bottom: 3px; }
+.emg-itext { white-space: pre-wrap; line-height: 1.6; font-size: 14px; }
+.emg-ico { margin-right: 6px; }
+.emg-link { color: var(--c-primary); }
+.emg-note { margin-top: 10px; font-size: 12px; color: var(--c-muted); }
+.emg-block .emg-empty { padding: 20px 8px; }
+
+.emg-table .col-act1 { width: 56px; text-align: center; }
+.emg-table .c-name { width: 24%; }
+.emg-table .c-type { width: 90px; }
+.emg-table .c-by { width: 110px; }
+.emg-table .c-upd { width: 110px; }
+.emg-tf.emg-hide { display: none; }
+.emg-readonly { line-height: 36px; font-weight: bold; }
+.emg-types { gap: 18px; }
+.emg-types .chk-inline { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+
+@media (max-width: 1100px) {
+  .emg-blocks { grid-template-columns: 1fr; }
+  .emg-alert-body { flex-direction: column; }
+  .emg-chips { width: auto; flex-direction: row; flex-wrap: wrap; }
+}

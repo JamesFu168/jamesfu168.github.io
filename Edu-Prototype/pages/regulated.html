@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>列管查詢 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/check.css?v=0dff829">
+</head>
+<body data-page="regulated" data-menu="regulated" data-title="列管查詢">
+  <main id="page-content">
+    <div class="chk-notice" id="reg-notice"></div>
+    <div class="filter-panel" id="filter-panel">
+      <div class="filter-header"><span>查詢條件</span><span class="toggle-caret">▾</span></div>
+      <div class="filter-body">
+        <div class="filter-grid">
+          <div class="form-row"><label class="form-label" for="q-keyword">關鍵字</label><div class="form-field"><input type="text" id="q-keyword" placeholder="SDS 名稱、CAS，例如：汞、7439-97-6" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label" for="q-cat">列管分類</label><div class="form-field"><select id="q-cat"><option value="">全部</option><option value="ghs">GHS 化學品</option><option value="concern">關注化學物質</option><option value="toxic">毒性化學物質</option></select></div></div>
+        </div>
+        <div class="filter-actions"><button type="button" class="btn btn-primary" id="btn-search">查詢</button><button type="button" class="btn btn-secondary" id="btn-clear">清除</button></div>
+      </div>
+    </div>
+
+    <div class="action-bar"><span class="spacer"></span><span class="list-total" id="list-total"></span></div>
+
+    <div class="table-wrap">
+      <table class="table reg-list">
+        <thead><tr>
+          <th class="r-name">SDS 名稱</th><th class="r-cas">CAS No</th><th class="r-sup">製造商或供應商</th><th class="r-cnt">化學品數量</th>
+          <th class="r-cat">GHS 化學品</th><th class="r-cat">關注化學物質</th><th class="r-cat">毒性化學物質</th>
+        </tr></thead>
+        <tbody id="reg-body"></tbody>
+      </table>
+    </div>
+    <div class="list-count" id="list-count"></div>
+    <div class="reg-summary" id="reg-summary"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/sds-schema.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/regulated.js?v=0dff829"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>毒化物文件維護 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/tox-doc.css?v=0dff829">
+</head>
+<body data-page="tox-doc-form" data-menu="tox-doc" data-title="毒化物文件維護">
+  <main id="page-content">
+    <div class="card" id="doc-card">
+      <div class="dirty-flag" id="dirty-flag" hidden>尚未儲存</div>
+
+      <div class="form-group-title">一、文件資料</div>
+      <div class="form-row"><label class="form-label required">組織部門</label><div class="form-field" data-f="orgId"><select></select><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label required">文件類型</label><div class="form-field" data-f="docType"><select><option value="">請選擇文件類型</option><option>許可證</option><option>登記文件</option><option>核可文件</option></select><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label required">文件編號</label><div class="form-field" data-f="docNo"><input type="text" maxlength="60" autocomplete="off"><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label required">有效期限</label><div class="form-field" data-f="validUntil"><input type="date"><div class="form-error"></div></div></div>
+      <div class="form-row"><label class="form-label">管制編號</label><div class="form-field" data-f="controlNo"><input type="text" maxlength="40" autocomplete="off"></div></div>
+
+      <div class="pair-grid">
+        <div>
+          <div class="form-group-title">二、運作人</div>
+          <div class="form-row"><label class="form-label">運作人名稱</label><div class="form-field" data-f="operatorName"><input type="text" maxlength="80" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label">運作人地址</label><div class="form-field" data-f="operatorAddress"><input type="text" maxlength="120" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label">運作人電話</label><div class="form-field" data-f="operatorPhone"><input type="text" maxlength="30" autocomplete="off"></div></div>
+        </div>
+        <div>
+          <div class="form-group-title">三、運作場所</div>
+          <div class="form-row"><label class="form-label">運作場所名稱</label><div class="form-field" data-f="siteName"><input type="text" maxlength="80" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label">運作場所地址</label><div class="form-field" data-f="siteAddress"><input type="text" maxlength="120" autocomplete="off"></div></div>
+          <div class="form-row"><label class="form-label">運作場所電話</label><div class="form-field" data-f="sitePhone"><input type="text" maxlength="30" autocomplete="off"></div></div>
+        </div>
+      </div>
+
+      <div class="form-group-title">四、附件</div>
+      <div class="form-row"><label class="form-label">附件</label><div class="form-field" data-f="attachmentName">
+        <div class="att-line">
+          <label class="btn btn-secondary btn-sm write-only att-pick" id="att-pick">選擇檔案<input type="file" id="att-file" accept=".pdf,application/pdf" hidden></label>
+          <span id="att-name" class="att-name"></span>
+          <button type="button" class="btn-text-link write-only" id="att-remove" hidden>移除</button>
+        </div>
+        <div class="form-error"></div>
+        <div class="hint-gray">主要上傳 PDF；<span class="poc-badge">POC 模擬</span> 僅記錄檔名，不上傳伺服器</div>
+      </div></div>
+
+      <div class="form-group-title">五、涵蓋物質</div>
+      <div class="sec-bar write-only"><button type="button" class="btn btn-secondary btn-sm" id="btn-sub-add">新增毒化物</button></div>
+      <div class="table-wrap"><table class="table sub-table">
+        <thead><tr><th class="c-no">列管編號-序號</th><th class="c-nm">中文名稱</th><th class="c-cas">CAS</th><th class="c-conc">濃度 w/w %（下限～上限）</th><th class="c-u">單位</th><th class="col-act2 write-only">修改</th><th class="col-act2 write-only">移除</th></tr></thead>
+        <tbody id="sub-body"></tbody>
+      </table></div>
+      <div class="form-error sec-error" id="err-subs"></div>
+
+      <div class="form-group-title">六、涵蓋 SDS</div>
+      <div class="sec-bar write-only"><button type="button" class="btn btn-secondary btn-sm" id="btn-sds-pick">選取 SDS</button></div>
+      <div class="table-wrap"><table class="table sds-table">
+        <thead><tr><th class="c-nm">名稱</th><th class="c-idx">索引碼</th><th class="c-tox">毒化物識別</th><th class="col-act2 write-only">移除</th></tr></thead>
+        <tbody id="sds-body"></tbody>
+      </table></div>
+      <div class="group-note">同一 SDS 可對應多份文件；文件數不影響庫存與運作次數</div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary write-only" id="btn-save">儲存</button>
+        <button type="button" class="btn btn-secondary" id="btn-cancel">取消</button>
+        <button type="button" class="btn btn-secondary write-only" id="btn-to-edit" hidden>轉修改</button>
+      </div>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/tox-doc-form.js?v=0dff829"></script>
+</body>
+</html>

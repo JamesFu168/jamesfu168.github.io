@@ -1,0 +1,31 @@
+/* 平面圖查詢與基本資料（T09） */
+.map-table { min-width: 1080px; }
+.map-table .c-act { width: 58px; text-align: center; white-space: nowrap; }
+.map-table .c-act2 { width: 78px; white-space: nowrap; text-align: center; }
+.map-table .c-org { width: 76px; }
+.map-table .c-name { width: 160px; }
+.map-table .c-bld { width: 130px; }
+.map-table .c-resc { width: 96px; }
+.map-table .c-contact { width: 128px; white-space: nowrap; }
+.map-table .c-time { width: 128px; white-space: nowrap; }
+.map-table td.c-time { white-space: normal; }
+.map-table td.c-act, .map-table td.c-act2 { text-align: center; }
+.form-group-title .group-hint { font-size: 12px; font-weight: normal; color: var(--c-muted); margin-left: 8px; }
+#info-card .form-label { width: 190px; height: auto; min-height: 36px; }
+#info-card .form-actions { padding-left: 190px; }
+#info-card .form-field { max-width: 720px; }
+.map-preview-empty { text-align: center; padding: 48px 20px; color: var(--c-muted); background: #f5f8fb; border: 1px dashed var(--c-border); border-radius: 6px; }
+@media (max-width: 900px) { #info-card .form-actions { padding-left: 0; } }
+
+.hcard-format { display: flex; flex-direction: column; gap: 12px; }
+.hcard-opt { display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; cursor: pointer; }
+.hcard-opt input { margin-top: 4px; }
+
+/* T10：檢視模式圖面與區塊表格 */
+.map-sub-title { margin-top: 18px; }
+.map-block-table .c-blk { width: 200px; }
+.map-block-table .c-pos { width: 200px; }
+.map-block-table td { vertical-align: top; }
+.map-chem-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.map-chem-table th, .map-chem-table td { padding: 4px 8px; border-bottom: 1px solid var(--c-border); text-align: left; }
+.map-chem-table th { background: #f3f6fa; white-space: nowrap; }

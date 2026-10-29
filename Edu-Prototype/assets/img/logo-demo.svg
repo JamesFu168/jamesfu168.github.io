@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="48" viewBox="0 0 220 48" role="img" aria-label="示範大學">
+  <rect x="2" y="4" width="40" height="40" rx="9" fill="#1f6fb2"/>
+  <text x="22" y="32" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="#fff">示範</text>
+  <text x="52" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="bold" fill="#3d5a80">示範大學</text>
+</svg>

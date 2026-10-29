@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平面圖圖面管理 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/map-editor.css?v=0dff829">
+</head>
+<body data-page="map-editor" data-menu="map" data-title="平面圖圖面管理">
+  <main id="page-content">
+    <div class="card me-head" id="me-head" hidden>
+      <div class="me-head-info">
+        <div class="me-name" id="me-name"></div>
+        <div class="me-org muted" id="me-org"></div>
+      </div>
+      <span class="tag tag-danger me-dirty" id="me-dirty" hidden>有未儲存變更</span>
+      <div class="me-head-btns">
+        <button type="button" class="btn btn-secondary" id="btn-back">返回清單</button>
+        <button type="button" class="btn btn-primary write-only" id="btn-save">儲存</button>
+        <button type="button" class="btn btn-secondary write-only" id="btn-cancel" title="放棄未儲存變更，還原到上次儲存狀態">取消</button>
+      </div>
+    </div>
+
+    <div class="me-body" id="me-body" hidden>
+      <div class="me-main">
+        <div class="card me-toolbar" id="me-toolbar">
+          <div class="me-tool-group" role="group" aria-label="模式">
+            <span class="me-tool-title">模式</span>
+            <button type="button" class="btn btn-secondary btn-sm me-mode" data-mode="select">選取</button>
+            <button type="button" class="btn btn-secondary btn-sm me-mode" data-mode="draw">繪製區塊</button>
+            <button type="button" class="btn btn-secondary btn-sm me-mode" data-mode="icon">放置 ICON</button>
+          </div>
+          <div class="me-tool-group" role="group" aria-label="底圖">
+            <span class="me-tool-title">底圖</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-upload">上傳底圖</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-demo-base">載入示範底圖</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-base">移除底圖</button>
+            <input type="file" id="file-base" accept="image/*" hidden>
+          </div>
+          <div class="me-tool-group" role="group" aria-label="編輯">
+            <span class="me-tool-title">編輯</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-undo">復原</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-redo">重做</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-delete">刪除選取</button>
+          </div>
+          <div class="me-tool-hint muted" id="me-mode-hint"></div>
+        </div>
+        <div class="card me-canvas-card">
+          <div class="me-canvas-scroll" id="me-canvas"></div>
+          <div class="me-gallery">
+            <div class="me-gallery-title">ICON 圖庫 <span class="muted">（點選圖庫項目後，再點畫布放置；POC 示範圖示）</span></div>
+            <div class="me-gallery-list" id="me-gallery"></div>
+          </div>
+        </div>
+      </div>
+      <aside class="card me-panel" id="me-panel" aria-label="屬性面板"></aside>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/position-dialog.js?v=0dff829"></script>
+  <script src="../assets/js/map-render.js?v=0dff829"></script>
+  <script src="../assets/js/pages/map-editor.js?v=0dff829"></script>
+</body>
+</html>

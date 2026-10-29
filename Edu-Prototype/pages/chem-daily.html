@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>每日用量月曆 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/chem-daily.css?v=0dff829">
+</head>
+<body data-page="chem-daily" data-menu="chem" data-title="每日用量月曆">
+  <main id="page-content">
+    <div class="card daily-head">
+      <div class="daily-ident">
+        <div class="daily-name"><span id="d-name"></span> <span id="d-tox" class="tag tag-danger" hidden>毒化物</span></div>
+        <div class="daily-meta"><span>組織：<b id="d-org"></b></span><span>計量單位：<b id="d-unit"></b></span></div>
+      </div>
+      <a class="btn btn-secondary" id="btn-back" href="#">返回化學品清單</a>
+    </div>
+
+    <div class="card daily-card">
+      <div class="daily-toolbar">
+        <div class="month-nav">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-prev">上月</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-today">本月</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-next">下月</button>
+          <span class="month-title" id="month-title"></span>
+        </div>
+        <div class="legend" aria-label="圖例">
+          <span class="lg lg-inc">有異動：增加</span>
+          <span class="lg lg-dec">有異動：減少</span>
+          <span class="lg lg-none">已回報無變動</span>
+          <span class="lg lg-bal">結餘</span>
+        </div>
+      </div>
+
+      <div class="summary-row" id="summary">
+        <div class="sum-item"><div class="sum-label">本月期初結餘</div><div class="sum-value" id="s-open"></div><div class="sum-sub" id="s-open-src"></div></div>
+        <div class="sum-item"><div class="sum-label">本月增加合計</div><div class="sum-value sum-inc" id="s-inc"></div></div>
+        <div class="sum-item"><div class="sum-label">本月減少合計</div><div class="sum-value sum-dec" id="s-dec"></div></div>
+        <div class="sum-item"><div class="sum-label">截至今日結餘</div><div class="sum-value sum-bal" id="s-now"></div></div>
+        <div class="sum-item"><div class="sum-label">預計次月期初</div><div class="sum-value" id="s-next"></div></div>
+        <div class="sum-item"><div class="sum-label">關帳狀態</div><div class="sum-value" id="s-closed"></div></div>
+      </div>
+
+      <div class="opening-panel" id="opening-panel" hidden>
+        <div class="opening-title">本月尚無期初結餘：沒有上月可承接資料，請輸入當月期初結餘量</div>
+        <div class="write-only">
+          <div class="form-row">
+            <label class="form-label required" for="op-qty">期初結餘量</label>
+            <div class="form-field">
+              <div class="form-inline"><input type="number" id="op-qty" min="0" step="any" autocomplete="off"><span class="unit-addon op-unit"></span></div>
+              <div class="form-error" id="op-error"></div>
+              <div class="form-hint">期初為庫存起點，不當成買入或轉入；單位固定為化學品設定單位。</div>
+            </div>
+          </div>
+          <div class="form-actions"><button type="button" class="btn btn-primary" id="btn-op-save">儲存期初</button></div>
+        </div>
+        <div class="op-readonly-note muted">請由具寫入權限的使用者輸入期初結餘。</div>
+      </div>
+
+      <div class="cal-wrap">
+        <div class="cal-grid cal-weekdays"><div>週日</div><div>週一</div><div>週二</div><div>週三</div><div>週四</div><div>週五</div><div>週六</div></div>
+        <div class="cal-grid" id="cal-body"></div>
+      </div>
+      <div class="cal-note muted">過去與今天的日期可點選；未來日期不可輸入。沒有紀錄的日期不自動視為無變動。</div>
+    </div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/pages/chem-daily.js?v=0dff829"></script>
+</body>
+</html>

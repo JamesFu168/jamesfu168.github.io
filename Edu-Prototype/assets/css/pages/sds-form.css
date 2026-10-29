@@ -1,0 +1,125 @@
+/* SDS 十六項表單（UI-06）。共用的表單輔助樣式限定在 .sds-form 底下，避免與其他頁重複定義衝突。 */
+.sds-form .spacer { flex: 1; }
+.sds-form .muted { color: var(--c-muted); }
+.sds-form .form-label { width: 190px; }
+.sds-form .view-value { min-height: 36px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sds-form .inline-hint { margin-left: 10px; color: var(--c-muted); font-size: 12px; }
+.sds-form .form-hint { color: var(--c-muted); font-size: 12px; margin-top: 3px; }
+.sds-form .hint-line { color: var(--c-muted); font-size: 12px; margin-bottom: 10px; }
+
+/* 識別列 */
+.sds-head { padding: 12px 16px 4px; }
+.head-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.head-name { font-size: 18px; font-weight: bold; color: var(--c-side); }
+.unsaved { font-size: 12px; }
+.head-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+.sds-head .form-label { width: 110px; }
+.head-grid + .pdf-row { display: flex; }
+.pdf-row .form-field { flex: 1; min-width: 0; }
+.pdf-box { padding: 2px 0 8px; }
+.pdf-empty { min-height: 30px; display: flex; align-items: center; }
+.pdf-table { width: 100%; max-width: 760px; border-collapse: collapse; margin-bottom: 6px; }
+.pdf-table th, .pdf-table td { padding: 5px 10px; border-bottom: 1px solid var(--c-border); text-align: left; font-size: 14px; }
+.pdf-table th { background: #f2f6fa; color: var(--c-side); font-weight: bold; }
+.pdf-table .p-name { color: var(--c-primary); overflow-wrap: anywhere; }
+.pdf-table .p-date { width: 110px; white-space: nowrap; }
+.pdf-table .p-notify { width: 120px; }
+.pdf-table .p-op { width: 70px; text-align: center; }
+.pdf-add { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pdf-add input[type=file] { max-width: 300px; }
+
+/* 版面：左欄位＋右導覽（T04b：導覽 sticky，頁首高 60px） */
+.sds-layout { display: flex; align-items: flex-start; gap: 14px; }
+.sds-nav { flex: none; width: 236px; padding: 10px 8px; margin-bottom: 0; position: sticky; top: 72px; align-self: flex-start; max-height: calc(100vh - 150px); overflow-y: auto; }
+.nav-title { font-weight: bold; padding: 4px 8px 8px; color: var(--c-side); }
+.sds-nav ul { list-style: none; margin: 0; padding: 0; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 8px; background: none; border: 0; border-left: 3px solid transparent;
+  border-radius: 4px; font: inherit; color: var(--c-text); text-align: left; cursor: pointer;
+}
+.nav-item:hover { background: #eaf2fa; }
+.nav-item.active { background: #dcebf8; border-left-color: var(--c-primary); font-weight: bold; color: var(--c-primary-dark); }
+.nav-no { flex: none; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; background: #e6edf5; font-size: 12px; font-weight: bold; }
+.nav-item.active .nav-no { background: var(--c-primary); color: #fff; }
+.nav-name { flex: 1; min-width: 0; }
+.nav-done { flex: none; width: 18px; height: 18px; line-height: 16px; text-align: center; border-radius: 50%; border: 1px solid #c3ccd7; font-size: 12px; color: #fff; }
+.nav-done.on { background: var(--c-ok); border-color: var(--c-ok); }
+.nav-err { display: none; flex: none; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 50%; background: var(--c-danger); color: #fff; font-size: 12px; font-weight: bold; }
+.nav-item.has-error .nav-err { display: inline-block; }
+.nav-count { margin: 8px 8px 2px; padding-top: 8px; border-top: 1px solid var(--c-border); color: var(--c-muted); font-size: 13px; }
+.sds-panel { flex: 1; min-width: 0; margin-bottom: 0; padding: 16px 20px 20px; }
+.sec-title { margin: 0 0 14px; font-size: 18px; color: var(--c-side); padding-bottom: 8px; border-bottom: 2px solid var(--c-primary); }
+
+/* 核取與單選 */
+.sds-form .chk { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; line-height: 1.4; }
+.sds-form .chk input { margin: 0; flex: none; }
+.sds-form .chk-inline { margin-right: 18px; min-height: 36px; }
+.radio-line { display: flex; align-items: center; flex-wrap: wrap; min-height: 36px; }
+
+/* 第二項 */
+.hz-group { margin: 0 0 14px 0; padding: 10px 12px; background: #f7fafd; border: 1px solid var(--c-border); border-radius: 6px; }
+.hz-title { font-weight: bold; margin-bottom: 8px; color: var(--c-side); }
+.hz-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+#s2-body.non-ghs-off { opacity: .45; pointer-events: none; }
+.hz-summary { display: flex; flex-wrap: wrap; gap: 6px; min-height: 36px; align-items: center; padding: 4px 0; }
+.sum-tag { font-size: 12px; padding: 3px 9px; border-radius: 10px; border: 1px solid; }
+.sum-physicalHazards { background: #fff4e0; border-color: #f0cf85; color: #8a5a00; }
+.sum-healthHazards { background: #fde8e6; border-color: #f2b8b3; color: #a62a21; }
+.sum-envHazards { background: #e3f5ea; border-color: #a9dbbd; color: #1d7a45; }
+.ghs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 14px; }
+.ghs-item { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border: 1px solid var(--c-border); border-radius: 6px; cursor: pointer; background: #fff; }
+.ghs-item:hover { background: #f5f9fd; }
+.ghs-ico { position: relative; flex: none; width: 46px; height: 46px; display: inline-block; }
+.ghs-ico::before { content: ""; position: absolute; left: 9px; top: 9px; width: 28px; height: 28px; border: 3px solid #d32f2f; background: #fff; transform: rotate(45deg); }
+.ghs-ico > span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #222; }
+.ghs-name { display: flex; flex-direction: column; font-size: 13px; line-height: 1.3; }
+.ghs-name b { color: var(--c-muted); font-size: 12px; }
+.ghs-grid .muted { grid-column: 1 / -1; }
+
+/* 第三項 */
+.comp-table { table-layout: fixed; min-width: 760px; }
+.comp-table .c-no { width: 38px; text-align: center; }
+.comp-table .c-cas { width: 120px; }
+.comp-table .c-fm { width: 100px; }
+.comp-table .c-pct { width: 84px; }
+.comp-table .c-del { width: 72px; text-align: center; }
+.comp-table td { vertical-align: top; }
+.comp-table td.has-error input { border-color: var(--c-danger); }
+.comp-table .form-error { color: var(--c-danger); font-size: 12px; margin-top: 3px; }
+.comp-table input.input { padding: 0 8px; }
+.comp-actions { margin: 10px 0 0; display: flex; align-items: center; }
+.match-panel { margin-top: 20px; border: 1px solid var(--c-border); border-radius: 6px; background: #f7fafd; padding: 10px 14px; }
+.match-panel.has-hit { border-color: #f2b8b3; background: #fff6f5; }
+.match-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.match-note { color: var(--c-muted); font-size: 12px; }
+.match-list { list-style: none; margin: 0; padding: 0; }
+.match-list li { display: flex; gap: 14px; padding: 6px 0; border-top: 1px dashed var(--c-border); align-items: flex-start; }
+.match-list li:first-child { border-top: 0; }
+.match-list .m-name { flex: none; width: 220px; font-weight: bold; overflow-wrap: anywhere; }
+.match-list .m-res { flex: 1; min-width: 0; line-height: 1.9; }
+
+/* 底部固定操作列 */
+.sds-actions {
+  position: sticky; bottom: 0; z-index: 30; display: flex; align-items: center; gap: 8px; margin-top: 14px; padding: 10px 16px;
+  background: #fff; border: 1px solid var(--c-border); border-radius: 6px; box-shadow: 0 -3px 10px rgba(0,0,0,.08);
+}
+
+@media (max-width: 1100px) {
+  .sds-layout { flex-direction: column; align-items: stretch; }
+  .sds-panel { width: 100%; }
+  .sds-nav { order: -1; width: 100%; position: static; max-height: none; overflow: visible; }
+  .sds-nav ul { display: flex; flex-wrap: wrap; gap: 4px; }
+  .sds-nav li { flex: 0 0 auto; }
+  .sds-nav .nav-item { width: auto; }
+  .sds-nav .nav-count { display: none; }
+  .head-grid { grid-template-columns: 1fr; }
+  .hz-list { grid-template-columns: 1fr; }
+  .ghs-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .sds-form .form-label { width: auto; }
+}
+.comp-table td.c-no { vertical-align: middle; }
+
+/* T05：智能解析帶入提示列 */
+.parse-banner { background: #fff6d6; border: 1px solid #f0cf85; color: #7a5200; border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 14px; }

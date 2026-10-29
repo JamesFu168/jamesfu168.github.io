@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>教育部批次申報匯出 - 教育部化學雲</title>
+  <link rel="stylesheet" href="../assets/css/common.css?v=0dff829">
+  <link rel="stylesheet" href="../assets/css/pages/report.css?v=0dff829">
+</head>
+<body data-page="report-moe" data-menu="report-moe" data-title="教育部批次申報匯出">
+  <main id="page-content">
+    <div class="moe-title">教育部化學品管理系統－毒化物批次申報格式 <span class="poc-badge" title="XLS 與 ZIP 為實際下載；僅產生檔案，不會送出">POC 模擬</span></div>
+    <div class="rpt-note">匯出期間內毒化物文件所綁定列管物質的申報資訊；資料限目前學校授權範圍；匯出不代表已向教育部報送。</div>
+
+    <div class="card moe-card">
+      <div class="form-row"><label class="form-label required" for="m-start">運作紀錄起始日</label><div class="form-field"><input type="date" id="m-start" class="input"><div class="form-error" data-e="start"></div></div></div>
+      <div class="form-row"><label class="form-label required" for="m-end">運作紀錄結束日</label><div class="form-field"><input type="date" id="m-end" class="input"><div class="form-error" data-e="end"></div></div></div>
+      <div class="moe-actions">
+        <button type="button" class="btn btn-primary" id="btn-export">匯出所有 Excel</button>
+        <button type="button" class="btn btn-secondary" id="btn-clear">清除</button>
+      </div>
+    </div>
+
+    <div class="moe-preview-head">預計匯出清單 <span class="poc-badge">展示輔助</span><span class="spacer"></span><span class="list-total" id="moe-total"></span></div>
+    <div class="table-wrap">
+      <table class="table moe-table">
+        <thead><tr>
+          <th class="c-no">#</th>
+          <th class="c-doc">毒化物文件</th>
+          <th class="c-ctl">管制編號</th>
+          <th class="c-sub">列管物質</th>
+          <th class="c-chem">化學品（經文件涵蓋 SDS）</th>
+          <th class="c-cnt">期間內紀錄筆數</th>
+          <th class="c-nc">期間內皆無異動</th>
+        </tr></thead>
+        <tbody id="moe-body"></tbody>
+      </table>
+    </div>
+    <div class="moe-empty" id="moe-empty"></div>
+  </main>
+  <script src="../assets/js/vendor/jquery-3.7.1.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/xlsx.full.min.js?v=0dff829"></script>
+  <script src="../assets/js/vendor/jszip.min.js?v=0dff829"></script>
+  <script src="../assets/js/store.js?v=0dff829"></script>
+  <script src="../assets/js/seed/_load.js?v=0dff829"></script>
+  <script src="../assets/js/audit.js?v=0dff829"></script>
+  <script src="../assets/js/news.js?v=0dff829"></script>
+  <script src="../assets/js/app.js?v=0dff829"></script>
+  <script src="../assets/js/export-util.js?v=0dff829"></script>
+  <script src="../assets/js/report-monthly.js?v=0dff829"></script>
+  <script src="../assets/js/report-moe-batch.js?v=0dff829"></script>
+  <script src="../assets/js/pages/report-moe.js?v=0dff829"></script>
+</body>
+</html>

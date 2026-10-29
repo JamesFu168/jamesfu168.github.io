@@ -1,0 +1,31 @@
+/* 組織與人員管理（UI-03、UI-04） */
+.org-layout { display: grid; grid-template-columns: minmax(330px, 1fr) minmax(0, 2fr); gap: 14px; align-items: start; }
+.org-layout .card { margin-bottom: 0; }
+.org-search { margin-bottom: 10px; }
+.org-search .input { width: 100%; }
+.org-tools { gap: 6px; flex-wrap: nowrap; }
+.org-tools .btn { padding: 0 8px; }
+.org-tree { max-height: 62vh; overflow: auto; border-top: 1px solid var(--c-border); padding-top: 6px; }
+.org-tree ul { list-style: none; margin: 0; padding: 0; }
+.org-tree ul ul { padding-left: 20px; }
+.org-node { display: flex; align-items: center; gap: 2px; min-height: 34px; padding-right: 8px; border-radius: 4px; cursor: pointer; }
+.org-node:hover { background: #f1f6fb; }
+.org-node.selected { background: #dbe9f6; font-weight: bold; color: var(--c-side); }
+.org-caret { width: 24px; height: 24px; flex: none; border: 0; background: none; cursor: pointer; color: var(--c-muted); font-size: 12px; padding: 0; transition: transform .15s; }
+.org-caret.open { transform: rotate(90deg); }
+.org-caret.leaf { visibility: hidden; cursor: default; }
+.org-name mark { background: #ffe58a; color: inherit; padding: 0; }
+.org-empty { padding: 14px 6px; color: var(--c-muted); }
+.org-title { margin: 0; font-size: 18px; color: var(--c-side); }
+.org-user-table .col-act1 { width: 48px; text-align: center; }
+.org-user-table td.col-act1 { text-align: center; }
+.org-user-table .c-emp { width: 72px; }
+.org-user-table .c-acc { width: 100px; }
+.org-user-table .c-name { width: 76px; }
+.org-user-table .c-role { width: 88px; }
+.org-user-table .c-title { width: 84px; }
+
+/* 人員 Dialog */
+
+@media (max-width: 1100px) { .org-layout { grid-template-columns: 1fr; } }
+.org-user-table th, .org-user-table td { padding-left: 6px; padding-right: 6px; }
