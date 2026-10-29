@@ -495,6 +495,12 @@
       border-radius: 0.75rem;
     }
 
+    .sync-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 1.5rem;
@@ -536,18 +542,18 @@
           <h1 class="hero-title" id="profileName">James Fu</h1>
           <a class="hero-handle" href="https://github.com/JamesFu168" target="_blank" rel="noopener">@JamesFu168</a>
           <p class="hero-bio" id="profileBio">
-            歡迎來到我的個人作品集首頁入口！這裡自動彙整了我發佈在 GitHub Pages 的線上互動展示雛形與各項開源技術專案。
+            歡迎來到我的個人作品集首頁入口！這裡自動彙整了我發佈在 GitHub Pages 的線上互動展示雛形與各項公開技術專案。
           </p>
         </div>
       </div>
       <div class="stats-row">
         <div class="stat-box">
-          <div class="stat-value" id="statPagesCount">1</div>
+          <div class="stat-value" id="statPagesCount">-</div>
           <div class="stat-label">線上展示網站 (Pages)</div>
         </div>
         <div class="stat-box">
-          <div class="stat-value" id="statRepoCount">6</div>
-          <div class="stat-label">公開專案庫 (Repos)</div>
+          <div class="stat-value" id="statRepoCount">-</div>
+          <div class="stat-label">公開專案庫 (Public)</div>
         </div>
       </div>
     </div>
@@ -574,15 +580,20 @@
     <section class="section-block">
       <div class="section-header">
         <div>
-          <h2 class="section-title">開源專案與工具庫 (Repositories)</h2>
-          <p class="section-subtitle">自動同步自 GitHub 帳號下的所有公開儲存庫</p>
+          <h2 class="section-title">公開專案與工具庫 (Public Repositories)</h2>
+          <p class="section-subtitle">自動即時同步自 GitHub 帳號下的公開儲存庫（設為 Private 的專案會自動隱藏）</p>
         </div>
-        <span id="syncStatus" style="font-size: 0.82rem; color: var(--text-muted);">正在同步 GitHub API...</span>
+        <div class="sync-group">
+          <span id="syncStatus" style="font-size: 0.82rem; color: var(--text-muted);">正在同步 GitHub API...</span>
+          <button id="refreshBtn" class="icon-btn" type="button" style="padding: 0.35rem 0.65rem; font-size: 0.8rem;">
+            🔄 重新整理
+          </button>
+        </div>
       </div>
 
       <div class="toolbar">
         <div class="tabs" id="filterTabs">
-          <button class="tab-btn active" data-filter="all" type="button">全部專案</button>
+          <button class="tab-btn active" data-filter="all" type="button">全部公開專案</button>
           <button class="tab-btn" data-filter="pages" type="button">已啟用網頁 (Pages)</button>
           <button class="tab-btn" data-filter="code" type="button">程式碼與工具庫</button>
         </div>
@@ -603,7 +614,7 @@
 
   <footer>
     © <span id="year"></span> James Fu (<a href="https://github.com/JamesFu168" target="_blank" rel="noopener">@JamesFu168</a>) ·
-    透過 GitHub REST API 自動同步公開專案與 GitHub Pages 目錄
+    透過 GitHub REST API 即時同步公開專案與 GitHub Pages 目錄
   </footer>
 
   <script>
@@ -618,38 +629,6 @@
         has_pages: true,
         updated_at: '2026-10-25T05:29:53Z',
         html_url: 'https://github.com/JamesFu168/Edu-Prototype'
-      },
-      {
-        name: 'AI-Prompt',
-        description: '整理一些自己常用的 Prompt',
-        language: 'PowerShell',
-        has_pages: false,
-        updated_at: '2026-04-16T16:18:01Z',
-        html_url: 'https://github.com/JamesFu168/AI-Prompt'
-      },
-      {
-        name: 'dac',
-        description: 'DAC (Data Application Framework) tools',
-        language: 'C# / .NET',
-        has_pages: false,
-        updated_at: '2025-06-13T06:38:39Z',
-        html_url: 'https://github.com/JamesFu168/dac'
-      },
-      {
-        name: 'SonarQube',
-        description: '程式碼品質分析與靜態掃描相關專案',
-        language: 'DevOps',
-        has_pages: false,
-        updated_at: '2026-06-18T06:35:10Z',
-        html_url: 'https://github.com/JamesFu168/SonarQube'
-      },
-      {
-        name: 'IdentityServer4',
-        description: '身分驗證與 OAuth2 / OpenID Connect 授權服務整合',
-        language: 'C#',
-        has_pages: false,
-        updated_at: '2026-04-27T02:31:02Z',
-        html_url: 'https://github.com/JamesFu168/IdentityServer4'
       }
     ];
 
@@ -697,6 +676,7 @@
       const pagesRepos = allRepos.filter(r => r.has_pages);
 
       document.getElementById('statPagesCount').textContent = pagesRepos.length;
+      document.getElementById('statRepoCount').textContent = allRepos.length;
 
       if (pagesRepos.length === 0) {
         pagesGrid.innerHTML = `
@@ -761,7 +741,7 @@
       if (filtered.length === 0) {
         grid.innerHTML = `
           <div class="empty-state">
-            沒有找到符合篩選條件的專案。
+            沒有找到符合篩選條件的公開專案。
           </div>
         `;
         return;
@@ -810,25 +790,26 @@
 
     async function initPortfolio() {
       const syncStatus = document.getElementById('syncStatus');
+      syncStatus.textContent = '正在同步 GitHub API...';
       try {
+        const ts = Date.now();
         const [userRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${USERNAME}`),
-          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`)
+          fetch(`https://api.github.com/users/${USERNAME}?_t=${ts}`, { cache: 'no-store' }),
+          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated&_t=${ts}`, { cache: 'no-store' })
         ]);
 
         if (userRes.ok) {
           const user = await userRes.json();
           if (user.name) document.getElementById('profileName').textContent = user.name;
           if (user.bio) document.getElementById('profileBio').textContent = user.bio;
-          if (typeof user.public_repos === 'number') {
-            document.getElementById('statRepoCount').textContent = user.public_repos;
-          }
         }
 
         if (!reposRes.ok) throw new Error(`HTTP ${reposRes.status}`);
         const repos = await reposRes.json();
 
-        allRepos = repos.filter(r => r.name.toLowerCase() !== ROOT_REPO.toLowerCase());
+        allRepos = repos.filter(
+          r => !r.private && r.name.toLowerCase() !== ROOT_REPO.toLowerCase()
+        );
         syncStatus.textContent = '✓ 已即時同步 GitHub 最新狀態';
       } catch (err) {
         console.warn('GitHub API 讀取失敗，使用內建快取資料：', err);
@@ -853,6 +834,11 @@
     // Search Input Event
     document.getElementById('searchInput').addEventListener('input', () => {
       renderAllReposSection();
+    });
+
+    // Manual Refresh Button
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      initPortfolio();
     });
 
     initPortfolio();
