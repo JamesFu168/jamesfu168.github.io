@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JamesFu168 — GitHub Pages 專案入口</title>
+  <title>James Fu (@JamesFu168) — 個人作品集與 GitHub Pages 入口</title>
+  <meta name="description" content="James Fu 的個人作品集首頁入口，自動整合 GitHub Pages 線上展示網站與公開開源專案。" />
   <style>
-    :root {
-      --bg: #0f172a;
+    :root[data-theme="dark"] {
+      --bg: #0b1120;
+      --bg-elevated: #111827;
       --bg-card: #1e293b;
       --bg-card-hover: #26354d;
+      --bg-glass: rgba(30, 41, 59, 0.75);
       --text-main: #f8fafc;
+      --text-secondary: #cbd5e1;
       --text-muted: #94a3b8;
       --border: #334155;
+      --border-hover: #38bdf8;
       --accent: #38bdf8;
-      --accent-hover: #0ea5e9;
-      --badge-bg: rgba(56, 189, 248, 0.12);
-      --badge-text: #38bdf8;
+      --accent-strong: #0ea5e9;
+      --accent-glow: rgba(56, 189, 248, 0.16);
+      --live-badge-bg: rgba(16, 185, 129, 0.15);
+      --live-badge-text: #34d399;
+      --live-dot: #10b981;
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.85);
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-hover: #0284c7;
+      --accent: #0284c7;
+      --accent-strong: #0369a1;
+      --accent-glow: rgba(2, 132, 199, 0.1);
+      --live-badge-bg: rgba(16, 185, 129, 0.12);
+      --live-badge-text: #059669;
+      --live-dot: #10b981;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -32,167 +60,319 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    header {
-      max-width: 1080px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 2rem;
+    /* Top Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      background: var(--bg-glass);
       border-bottom: 1px solid var(--border);
+    }
+
+    .navbar-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1.25rem;
     }
 
-    .profile-group {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      background: var(--bg-card);
-    }
-
-    .title-group h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .title-group p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .controls {
+    .brand {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      flex-wrap: wrap;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.1rem;
     }
 
-    .search-input {
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .icon-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 0.85rem;
       border-radius: 0.5rem;
-      font-size: 0.95rem;
-      min-width: 240px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-    }
-
-    .github-link {
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      color: var(--text-main);
+      gap: 0.45rem;
       text-decoration: none;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 0.6rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 0.9rem;
-      transition: border-color 0.2s, background 0.2s;
+      transition: all 0.2s ease;
     }
 
-    .github-link:hover {
-      border-color: var(--accent);
+    .icon-btn:hover {
+      border-color: var(--border-hover);
       background: var(--bg-card-hover);
     }
 
+    /* Hero Section */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at 80% 20%, var(--accent-glow), transparent 55%);
+    }
+
+    .hero-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding: 2.5rem 1.25rem;
+      }
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: var(--shadow);
+      background: var(--bg-card);
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-handle {
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .hero-bio {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      max-width: 620px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 1rem 1.35rem;
+      min-width: 135px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Main Container */
     main {
-      max-width: 1080px;
+      max-width: 1140px;
       width: 100%;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       flex: 1;
     }
 
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .section-block {
+      margin-bottom: 3rem;
     }
 
-    .grid {
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-top: 0.2rem;
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--live-dot);
+      box-shadow: 0 0 0 4px var(--live-badge-bg);
+    }
+
+    /* Featured Pages Grid */
+    .featured-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.25rem;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 0.75rem;
+      border-radius: 0.9rem;
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
 
     .card:hover {
       transform: translateY(-3px);
-      border-color: var(--accent);
+      border-color: var(--border-hover);
       background: var(--bg-card-hover);
     }
 
-    .card-header {
+    .card-featured {
+      border-left: 4px solid var(--accent);
+    }
+
+    .card-top {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
+      align-items: flex-start;
       gap: 0.75rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
     .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1.22rem;
+      font-weight: 700;
       color: var(--text-main);
       word-break: break-word;
     }
 
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      color: var(--accent);
+    }
+
+    .badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     .badge {
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 600;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
       white-space: nowrap;
     }
 
+    .badge-live {
+      background: var(--live-badge-bg);
+      color: var(--live-badge-text);
+    }
+
+    .badge-lang {
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+
+    .card-url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.4rem;
+      margin-bottom: 0.9rem;
+      display: inline-block;
+      word-break: break-all;
+    }
+
     .card-desc {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      margin-bottom: 1.3rem;
       flex: 1;
     }
 
+    .card-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
     .card-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     .card-actions {
@@ -206,33 +386,109 @@
       text-decoration: none;
       padding: 0.55rem 0.9rem;
       border-radius: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      transition: background 0.2s, border-color 0.2s;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
     }
 
     .btn-primary {
       background: var(--accent);
-      color: #0f172a;
+      color: #0b1120;
     }
 
     .btn-primary:hover {
-      background: var(--accent-hover);
+      background: var(--accent-strong);
+      color: #ffffff;
     }
 
     .btn-secondary {
       background: transparent;
       color: var(--text-main);
-      border: 1px solid var(--border);
+      border-color: var(--border);
     }
 
     .btn-secondary:hover {
       border-color: var(--text-muted);
+      background: var(--bg-elevated);
+    }
+
+    /* Filter Toolbar */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.85rem 1rem;
+      border-radius: 0.75rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.42rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-glow);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 250px;
+      flex: 1;
+      max-width: 340px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.5rem 0.9rem;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.15rem;
     }
 
     .empty-state {
+      grid-column: 1 / -1;
       text-align: center;
-      padding: 3.5rem 1rem;
+      padding: 3rem 1rem;
       color: var(--text-muted);
       background: var(--bg-card);
       border: 1px dashed var(--border);
@@ -240,64 +496,185 @@
     }
 
     footer {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
       border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="profile-group">
-      <img class="avatar" src="https://github.com/jamesfu168.png" alt="JamesFu168" />
-      <div class="title-group">
-        <h1>JamesFu168 GitHub Pages</h1>
-        <p>自動列出目前已發佈公開網頁的所有專案目錄</p>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="https://jamesfu168.github.io/">
+        <img src="https://github.com/jamesfu168.png" alt="James Fu" />
+        <span>James Fu · Portfolio</span>
+      </a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="切換深淺色主題">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">淺色模式</span>
+        </button>
+        <a class="icon-btn" href="https://github.com/JamesFu168" target="_blank" rel="noopener">
+          GitHub 主頁 ↗
+        </a>
       </div>
     </div>
-    <div class="controls">
-      <input
-        type="search"
-        id="searchInput"
-        class="search-input"
-        placeholder="搜尋專案名稱或描述..."
-        aria-label="搜尋專案"
-      />
-      <a class="github-link" href="https://github.com/JamesFu168?tab=repositories" target="_blank" rel="noopener">
-        GitHub 專案列表 ↗
-      </a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="profile-header">
+        <img class="hero-avatar" src="https://github.com/jamesfu168.png" alt="James Fu" />
+        <div>
+          <h1 class="hero-title" id="profileName">James Fu</h1>
+          <a class="hero-handle" href="https://github.com/JamesFu168" target="_blank" rel="noopener">@JamesFu168</a>
+          <p class="hero-bio" id="profileBio">
+            歡迎來到我的個人作品集首頁入口！這裡自動彙整了我發佈在 GitHub Pages 的線上互動展示雛形與各項開源技術專案。
+          </p>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-value" id="statPagesCount">1</div>
+          <div class="stat-label">線上展示網站 (Pages)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statRepoCount">6</div>
+          <div class="stat-label">公開專案庫 (Repos)</div>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
 
   <main>
-    <div class="status-bar">
-      <span id="countText">正在從 GitHub API 載入已公開的 GitHub Pages 專案...</span>
-      <span id="syncTime"></span>
-    </div>
-    <div id="repoGrid" class="grid"></div>
+    <!-- Featured GitHub Pages Section -->
+    <section class="section-block">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">
+            <span class="pulse-dot"></span>
+            線上展示網站 (GitHub Pages)
+          </h2>
+          <p class="section-subtitle">
+            在 <code>jamesfu168.github.io</code> 下目前已公開部署並可直接瀏覽的網站目錄
+          </p>
+        </div>
+      </div>
+      <div id="pagesGrid" class="featured-grid"></div>
+    </section>
+
+    <!-- All Public Repositories Section -->
+    <section class="section-block">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">開源專案與工具庫 (Repositories)</h2>
+          <p class="section-subtitle">自動同步自 GitHub 帳號下的所有公開儲存庫</p>
+        </div>
+        <span id="syncStatus" style="font-size: 0.82rem; color: var(--text-muted);">正在同步 GitHub API...</span>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs" id="filterTabs">
+          <button class="tab-btn active" data-filter="all" type="button">全部專案</button>
+          <button class="tab-btn" data-filter="pages" type="button">已啟用網頁 (Pages)</button>
+          <button class="tab-btn" data-filter="code" type="button">程式碼與工具庫</button>
+        </div>
+        <div class="search-box">
+          <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="搜尋專案名稱、語言或描述..."
+            aria-label="搜尋專案"
+          />
+        </div>
+      </div>
+
+      <div id="allReposGrid" class="repo-grid"></div>
+    </section>
   </main>
 
   <footer>
-    Powered by GitHub Pages &amp; GitHub REST API · 自動同步 <code>jamesfu168.github.io</code> 下的公開網站
+    © <span id="year"></span> James Fu (<a href="https://github.com/JamesFu168" target="_blank" rel="noopener">@JamesFu168</a>) ·
+    透過 GitHub REST API 自動同步公開專案與 GitHub Pages 目錄
   </footer>
 
   <script>
     const USERNAME = 'jamesfu168';
-    const ROOT_REPO = `${USERNAME}.github.io`;
+    const ROOT_REPO = 'jamesfu168.github.io';
+
     const FALLBACK_REPOS = [
       {
         name: 'Edu-Prototype',
-        description: '教育平台原型專案 (GitHub Pages)',
-        language: 'TypeScript / HTML',
-        updated_at: new Date().toISOString(),
-        html_url: 'https://github.com/JamesFu168/Edu-Prototype',
-        has_pages: true
+        description: '教育部化學雲 POC 展示雛形',
+        language: 'JavaScript',
+        has_pages: true,
+        updated_at: '2026-10-25T05:29:53Z',
+        html_url: 'https://github.com/JamesFu168/Edu-Prototype'
+      },
+      {
+        name: 'AI-Prompt',
+        description: '整理一些自己常用的 Prompt',
+        language: 'PowerShell',
+        has_pages: false,
+        updated_at: '2026-04-16T16:18:01Z',
+        html_url: 'https://github.com/JamesFu168/AI-Prompt'
+      },
+      {
+        name: 'dac',
+        description: 'DAC (Data Application Framework) tools',
+        language: 'C# / .NET',
+        has_pages: false,
+        updated_at: '2025-06-13T06:38:39Z',
+        html_url: 'https://github.com/JamesFu168/dac'
+      },
+      {
+        name: 'SonarQube',
+        description: '程式碼品質分析與靜態掃描相關專案',
+        language: 'DevOps',
+        has_pages: false,
+        updated_at: '2026-06-18T06:35:10Z',
+        html_url: 'https://github.com/JamesFu168/SonarQube'
+      },
+      {
+        name: 'IdentityServer4',
+        description: '身分驗證與 OAuth2 / OpenID Connect 授權服務整合',
+        language: 'C#',
+        has_pages: false,
+        updated_at: '2026-04-27T02:31:02Z',
+        html_url: 'https://github.com/JamesFu168/IdentityServer4'
       }
     ];
 
-    let allPagesRepos = [];
+    let allRepos = [];
+    let currentFilter = 'all';
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme Toggle
+    const rootEl = document.documentElement;
+    const savedTheme = localStorage.getItem('portfolio_theme') || 'dark';
+    setTheme(savedTheme);
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      localStorage.setItem('portfolio_theme', next);
+    });
+
+    function setTheme(theme) {
+      rootEl.setAttribute('data-theme', theme);
+      const isDark = theme === 'dark';
+      document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('themeLabel').textContent = isDark ? '淺色模式' : '深色模式';
+    }
 
     function formatDate(isoStr) {
       if (!isoStr) return '';
@@ -309,51 +686,56 @@
       });
     }
 
-    function renderRepos(filterText = '') {
-      const grid = document.getElementById('repoGrid');
-      const countText = document.getElementById('countText');
-      const keyword = filterText.trim().toLowerCase();
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
 
-      const filtered = allPagesRepos.filter(repo => {
-        const nameMatch = repo.name.toLowerCase().includes(keyword);
-        const descMatch = (repo.description || '').toLowerCase().includes(keyword);
-        return nameMatch || descMatch;
-      });
+    function renderPagesSection() {
+      const pagesGrid = document.getElementById('pagesGrid');
+      const pagesRepos = allRepos.filter(r => r.has_pages);
 
-      countText.textContent = `共找到 ${filtered.length} 個已公開的 GitHub Pages 網站`;
+      document.getElementById('statPagesCount').textContent = pagesRepos.length;
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state" style="grid-column: 1 / -1;">
-            沒有找到符合條件的 GitHub Pages 專案。
+      if (pagesRepos.length === 0) {
+        pagesGrid.innerHTML = `
+          <div class="empty-state">
+            目前尚無啟用 GitHub Pages 的子專案。
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = filtered.map(repo => {
-        const siteUrl = `https://${USERNAME}.github.io/${repo.name}/`;
-        const desc = repo.description || '尚無專案描述';
-        const lang = repo.language || 'Web';
+      pagesGrid.innerHTML = pagesRepos.map(repo => {
+        const pageUrl = `https://${USERNAME}.github.io/${repo.name}/`;
+        const desc = escapeHtml(repo.description || '已發佈於 GitHub Pages 的線上網頁專案');
+        const lang = escapeHtml(repo.language || 'Web');
         const updated = formatDate(repo.updated_at || repo.pushed_at);
 
         return `
-          <article class="card">
+          <article class="card card-featured">
             <div>
-              <div class="card-header">
-                <h2 class="card-title">/${repo.name}</h2>
-                <span class="badge">${lang}</span>
+              <div class="card-top">
+                <h3 class="card-title">
+                  <a href="${pageUrl}" target="_blank" rel="noopener">${escapeHtml(repo.name)}</a>
+                </h3>
+                <div class="badges">
+                  <span class="badge badge-live">● 已上線</span>
+                  <span class="badge badge-lang">${lang}</span>
+                </div>
               </div>
+              <div class="card-url">https://${USERNAME}.github.io/${escapeHtml(repo.name)}</div>
               <p class="card-desc">${desc}</p>
             </div>
-            <div>
+            <div class="card-footer">
               <div class="card-meta">
-                <span>網址：${USERNAME}.github.io/${repo.name}</span>
-                <span>更新：${updated}</span>
+                <span>子目錄路徑：/${escapeHtml(repo.name)}</span>
+                <span>最後更新：${updated}</span>
               </div>
               <div class="card-actions">
-                <a class="btn btn-primary" href="${siteUrl}" target="_blank" rel="noopener">開啟網站 ↗</a>
-                <a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">原始碼</a>
+                <a class="btn btn-primary" href="${pageUrl}" target="_blank" rel="noopener">立即造訪網站 ↗</a>
+                <a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">GitHub 原始碼</a>
               </div>
             </div>
           </article>
@@ -361,32 +743,119 @@
       }).join('');
     }
 
-    async function loadPagesRepos() {
-      const syncTimeEl = document.getElementById('syncTime');
-      try {
-        const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const repos = await res.json();
+    function renderAllReposSection() {
+      const grid = document.getElementById('allReposGrid');
+      const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
 
-        allPagesRepos = repos.filter(
-          r => r.has_pages && r.name.toLowerCase() !== ROOT_REPO.toLowerCase()
-        );
+      const filtered = allRepos.filter(repo => {
+        if (currentFilter === 'pages' && !repo.has_pages) return false;
+        if (currentFilter === 'code' && repo.has_pages) return false;
 
-        syncTimeEl.textContent = '即時同步自 GitHub API';
-      } catch (err) {
-        console.warn('GitHub API 讀取失敗，使用預設快取清單：', err);
-        allPagesRepos = FALLBACK_REPOS;
-        syncTimeEl.textContent = '使用快取清單';
+        if (!keyword) return true;
+        const nameMatch = repo.name.toLowerCase().includes(keyword);
+        const descMatch = (repo.description || '').toLowerCase().includes(keyword);
+        const langMatch = (repo.language || '').toLowerCase().includes(keyword);
+        return nameMatch || descMatch || langMatch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            沒有找到符合篩選條件的專案。
+          </div>
+        `;
+        return;
       }
 
-      renderRepos(document.getElementById('searchInput').value);
+      grid.innerHTML = filtered.map(repo => {
+        const hasPages = Boolean(repo.has_pages);
+        const pageUrl = `https://${USERNAME}.github.io/${repo.name}/`;
+        const desc = escapeHtml(repo.description || '開源技術與工具專案');
+        const lang = escapeHtml(repo.language || 'Repository');
+        const updated = formatDate(repo.updated_at || repo.pushed_at);
+
+        return `
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <h3 class="card-title">
+                  <a href="${hasPages ? pageUrl : repo.html_url}" target="_blank" rel="noopener">
+                    ${escapeHtml(repo.name)}
+                  </a>
+                </h3>
+                <div class="badges">
+                  ${hasPages ? '<span class="badge badge-live">Pages</span>' : ''}
+                  <span class="badge badge-lang">${lang}</span>
+                </div>
+              </div>
+              <p class="card-desc">${desc}</p>
+            </div>
+            <div class="card-footer">
+              <div class="card-meta">
+                <span>更新日期：${updated}</span>
+                <span>${hasPages ? `/${escapeHtml(repo.name)}` : 'GitHub Repo'}</span>
+              </div>
+              <div class="card-actions">
+                ${hasPages
+                  ? `<a class="btn btn-primary" href="${pageUrl}" target="_blank" rel="noopener">開啟網頁 ↗</a>
+                     <a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">原始碼</a>`
+                  : `<a class="btn btn-secondary" href="${repo.html_url}" target="_blank" rel="noopener">查看儲存庫 ↗</a>`
+                }
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
-    document.getElementById('searchInput').addEventListener('input', e => {
-      renderRepos(e.target.value);
+    async function initPortfolio() {
+      const syncStatus = document.getElementById('syncStatus');
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${USERNAME}`),
+          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`)
+        ]);
+
+        if (userRes.ok) {
+          const user = await userRes.json();
+          if (user.name) document.getElementById('profileName').textContent = user.name;
+          if (user.bio) document.getElementById('profileBio').textContent = user.bio;
+          if (typeof user.public_repos === 'number') {
+            document.getElementById('statRepoCount').textContent = user.public_repos;
+          }
+        }
+
+        if (!reposRes.ok) throw new Error(`HTTP ${reposRes.status}`);
+        const repos = await reposRes.json();
+
+        allRepos = repos.filter(r => r.name.toLowerCase() !== ROOT_REPO.toLowerCase());
+        syncStatus.textContent = '✓ 已即時同步 GitHub 最新狀態';
+      } catch (err) {
+        console.warn('GitHub API 讀取失敗，使用內建快取資料：', err);
+        allRepos = FALLBACK_REPOS;
+        syncStatus.textContent = '使用預載快取資料';
+      }
+
+      renderPagesSection();
+      renderAllReposSection();
+    }
+
+    // Filter Tabs Event
+    document.getElementById('filterTabs').addEventListener('click', e => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      renderAllReposSection();
     });
 
-    loadPagesRepos();
+    // Search Input Event
+    document.getElementById('searchInput').addEventListener('input', () => {
+      renderAllReposSection();
+    });
+
+    initPortfolio();
   </script>
 </body>
 </html>
